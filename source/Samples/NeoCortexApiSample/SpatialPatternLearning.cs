@@ -269,73 +269,85 @@ namespace NeoCortexApiSample
             return sp;
         }
         /// <summary>
-        /// 
-        /// 
+        /// Runs an experiment to encode input values, process them using a spatial pooler, and analyze similarity.
         /// </summary>
-        /// <param name="sp"></param>
-        /// <param name="encoder"></param>
-        /// <param name="inputValues"></param>
+        /// <param name="sp">The spatial pooler used for processing.</param>
+        /// <param name="encoder">The encoder used for encoding input values.</param>
+        /// <param name="inputValues">The list of input values to be processed.</param>
         private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
-            //Create a directory to save the bitmap output.
+            // Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
 
-            if (Directory.Exists(outFolder)) // check directory for not being empty or not existing
+            // Check if the directory exists, delete it if it does, then recreate it.
+            if (Directory.Exists(outFolder))
             {
-
                 Directory.Delete(outFolder, true);
             }
-
             Directory.CreateDirectory(outFolder);
 
+            // Iterate through each input value.
             foreach (var input in inputValues)
             {
+                // Encode the input value.
                 var inpSdr = encoder.Encode(input);
 
+                // Convert the encoded input into a 2D array.
                 int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
                 var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
+                // Draw a bitmap image of the encoded input and save it.
                 NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{input}.png", Color.Gray, Color.Green, text: null);
 
+                // Compute active columns using the spatial pooler.
                 var actCols = sp.Compute(inpSdr, false);
 
+                // Reconstruct probabilities from the active columns.
                 var probabilities = sp.Reconstruct(actCols);
 
-                //Collecting the permancences value and applying threshold and analyzing it
+                // Collecting the permancences value and applying threshold and analyzing it
 
+                // Extract the values from the dictionary.
                 Dictionary<int, double>.ValueCollection values = probabilities.Values;
+
+                // Initialize an array to store thresholded values.
                 int[] thresholdvalues = new int[inpSdr.Length];
 
-                int key = 0; //List index
+                // Initialize an index for iterating over thresholdvalues.
+                int key = 0;
 
-                var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+                // Set the threshold value.
+                var thresholds = 2;
 
+                // Loop through the values and apply thresholding.
                 foreach (var val in values)
                 {
                     if (val > thresholds)
                     {
                         thresholdvalues[key] = 1;
-                        key++;
                     }
                     else
                     {
                         thresholdvalues[key] = 0;
-                        key++;
                     }
+                    key++;
                 }
 
+                // Calculate similarity between the original encoded input and the thresholded values.
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
                 similarity = Math.Round(similarity, 2);
                 Console.WriteLine($"Similarity: {similarity}%");
 
+                // Convert similarity to string for file naming.
                 var similaritystrng = similarity.ToString();
 
+                // Convert thresholded values to a 2D array.
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
+                // Draw a bitmap image of the thresholded values, including similarity percentage, and save it.
                 NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
-
             }
         }
 
@@ -370,6 +382,10 @@ namespace NeoCortexApiSample
             return binaryArray;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sp1"> </param>
         private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
