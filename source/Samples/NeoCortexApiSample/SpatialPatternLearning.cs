@@ -51,7 +51,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold=10,
             };
 
-            double max = 100;
+            double max = 1;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -219,9 +219,27 @@ namespace NeoCortexApiSample
 
                 var probabilities = sp.Reconstruct(actCols);
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                Dictionary<int, double>.ValueCollection values = probabilities.Values;
+                Dictionary<int, double> reconstruct = new Dictionary<int, double>();
+                int key = 0;
+                foreach (double val in values)
+                {
+                    if (val > 5)
+                    {
+                        reconstruct.Add(key, 1);
+                        key++;
+                    }
+                    else
+                    {
+                        reconstruct.Add(key, 0);
+                        key++;
+                    }
+
+
+                }
             }
         }
     }
