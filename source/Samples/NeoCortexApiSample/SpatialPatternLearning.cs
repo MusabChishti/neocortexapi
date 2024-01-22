@@ -81,7 +81,7 @@ namespace NeoCortexApiSample
 
             var sp = RunExperiment(cfg, encoder, inputValues);
 
-            //RunRustructuringExperiment(sp, encoder, inputValues);
+            RunRustructuringExperiment(sp, encoder, inputValues);
         }
 
        
@@ -223,23 +223,28 @@ namespace NeoCortexApiSample
 
                 //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
                 Dictionary<int, double>.ValueCollection values = probabilities.Values;
-                Dictionary<int, double> reconstruct = new Dictionary<int, double>();
+                Dictionary<int, double> reconstructs = new Dictionary<int, double>();
                 int key = 0;
                 foreach (double val in values)
                 {
                     if (val > 5)
                     {
-                        reconstruct.Add(key, 1);
+                        reconstructs.Add(key, 1); //
                         key++;
                     }
                     else
                     {
-                        reconstruct.Add(key, 0);
+                        reconstructs.Add(key, 0);
                         key++;
                     }
 
 
                 }
+                foreach (var threshold in reconstructs)
+                {
+                    Debug.WriteLine(threshold.Value);
+                }
+
             }
         }
     }
