@@ -222,25 +222,28 @@ namespace NeoCortexApiSample
                 //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
                 //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+
+                //Collecting the permancences value and applying threshold and analyzing it
+
                 Dictionary<int, double>.ValueCollection values = probabilities.Values;
-                Dictionary<int, double> reconstructs = new Dictionary<int, double>();
+                Dictionary<int, double> thresholdvalues = new Dictionary<int, double>();
                 int key = 0;
                 foreach (double val in values)
                 {
                     if (val > 5)
                     {
-                        reconstructs.Add(key, 1); //
+                        thresholdvalues.Add(key, 1); //
                         key++;
                     }
                     else
                     {
-                        reconstructs.Add(key, 0);
+                        thresholdvalues.Add(key, 0);
                         key++;
                     }
 
 
                 }
-                foreach (var threshold in reconstructs)
+                foreach (var threshold in thresholdvalues)
                 {
                     Debug.WriteLine(threshold.Value);
                 }
