@@ -228,11 +228,12 @@ namespace NeoCortexApiSample
                 Dictionary<int, double>.ValueCollection values = probabilities.Values;
                 Dictionary<int, double> thresholdvalues = new Dictionary<int, double>();
                 int key = 0;
+                var threshold = 5;
                 foreach (double val in values)
                 {
-                    if (val > 5)
+                    if (val > threshold)
                     {
-                        thresholdvalues.Add(key, 1); //
+                        thresholdvalues.Add(key, 1);
                         key++;
                     }
                     else
@@ -243,9 +244,9 @@ namespace NeoCortexApiSample
 
 
                 }
-                foreach (var threshold in thresholdvalues)
+                foreach (var val in thresholdvalues)
                 {
-                    Debug.WriteLine(threshold.Value);
+                    Debug.WriteLine(val.Value);
                 }
 
             }
