@@ -228,10 +228,10 @@ namespace NeoCortexApiSample
                 Dictionary<int, double>.ValueCollection values = probabilities.Values;
                 Dictionary<int, double> thresholdvalues = new Dictionary<int, double>();
                 int key = 0;
-                var threshold = 5;
+                var thresholds = 5;     // just declared the variable for segrigating values between 0 and 1
                 foreach (double val in values)
                 {
-                    if (val > threshold)
+                    if (val > thresholds)
                     {
                         thresholdvalues.Add(key, 1);
                         key++;
