@@ -97,7 +97,7 @@ namespace NeoCortexApi
         /// Higher numbers ensure more stable SP, but it takes longer time to enter the stable stabe.</param>
         /// <param name="requiredSimilarityThreshold">The similarity between last and current SDR of the single pattern that must be reached to declare the SRR
         /// these two SDRs same.</param>
-        public HomeostaticPlasticityController(Connections htmMemory, int minCycles, Action<bool, int, double, int> onStabilityStatusChanged, int numOfCyclesToWaitOnChange = 50, double requiredSimilarityThreshold = 0.97)
+        public HomeostaticPlasticityController(Connections htmMemory, int minCycles, Action<bool, int, double, int> onStabilityStatusChanged, int numOfCyclesToWaitOnChange = 2, double requiredSimilarityThreshold = 0.97)
         {
             this.m_OnStabilityStatusChanged = onStabilityStatusChanged;
             this.m_HtmMemory = htmMemory;

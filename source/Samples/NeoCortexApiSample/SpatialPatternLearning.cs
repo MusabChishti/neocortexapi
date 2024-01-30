@@ -1,4 +1,5 @@
-﻿using NeoCortexApi;
+﻿using NeoCortex;
+using NeoCortexApi;
 using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Network;
@@ -51,7 +52,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold=10,
             };
 
-            double max = 1;
+            double max = 2;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -107,7 +108,7 @@ namespace NeoCortexApiSample
             // (defined by the second argument) the HPC is controlling the learning process of the SP.
             // Once the SDR generated for every input gets stable, the HPC will fire event that notifies your code
             // that SP is stable now.
-            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, inputValues.Count * 40,
+            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, inputValues.Count * 1,
                 (isStable, numPatterns, actColAvg, seenInputs) =>
                 {
                     // Event should only be fired when entering the stable state.
@@ -227,8 +228,8 @@ namespace NeoCortexApiSample
 
                 Dictionary<int, double>.ValueCollection values = probabilities.Values;
                 Dictionary<int, double> thresholdvalues = new Dictionary<int, double>();
-                int key = 0;
-                var threshold = 5;
+                int key = 0; //keys for the new dictionary thresholdvalues
+                var threshold = 5; // Threshold value to sort the probabilities values to either 0 or 1
                 foreach (double val in values)
                 {
                     if (val > threshold)
@@ -248,6 +249,7 @@ namespace NeoCortexApiSample
                 {
                     Debug.WriteLine(val.Value);
                 }
+                NeoCortexUtils.DrawBitmap(thresholdvalues)
 
             }
         }
