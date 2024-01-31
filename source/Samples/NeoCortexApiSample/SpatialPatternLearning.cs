@@ -262,6 +262,8 @@ namespace NeoCortexApiSample
         //..Trying to Implement Image Binarizer
         public class ImageBinarization()
         {
+            //.. Replace "inputImage.jpg" with the path to your input image
+            string inputImagePath = "C:\\Users\\rehma\\Pictures\\Screenshots\\ABC.png";
 
         }
     }
