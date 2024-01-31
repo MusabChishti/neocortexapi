@@ -23,7 +23,7 @@ namespace NeoCortex
         /// <param name="imageSize"></param>
         /// <param name="testName"></param>
         /// <returns></returns>
-        public static string BinarizeImage(string mnistImage, int imageSize, string testName)
+        public static string BinarizeImage(string mnistImage, int imageSize, string testName) 
         {
             string binaryImage;
 
