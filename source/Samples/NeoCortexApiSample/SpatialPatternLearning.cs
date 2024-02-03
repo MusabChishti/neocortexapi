@@ -286,6 +286,11 @@ namespace NeoCortexApiSample
             //.. Replace "inputImage.jpg" with the path to your input image
             string inputImagePath = "C:\\Users\\rehma\\Pictures\\Screenshots\\ABC.png";
 
+            //.. Set the binarization threshold (adjust as needed)
+            int threshold = 128;
         }
+       
+
+    }
     }
 }
