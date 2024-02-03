@@ -257,7 +257,7 @@ namespace NeoCortexApiSample
                     Debug.WriteLine(val.Value);
                 }
                 //NeoCortexUtils.DrawBitmap(thresholdvalues)
-               // NeoCortexUtils.BinarizeImage("767666", 78, "989877");
+                NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
 
             }
             //BinarizerParams binarizerParams = new BinarizerParams

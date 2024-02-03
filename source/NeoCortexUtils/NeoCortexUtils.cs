@@ -27,7 +27,7 @@ namespace NeoCortex
         {
             string binaryImage;
             mnistImage = "D:\\Code-X\\Capture - Copy.PNG";   // input path of image
-            testName = "a";
+            
 
             //binaryImage = $"{testName}.txt";
             binaryImage = "D:\\Code-X\\abcs.txt"; // output path
