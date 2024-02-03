@@ -1,4 +1,5 @@
-﻿using NeoCortexApi;
+﻿using NeoCortex;
+using NeoCortexApi;
 using NeoCortexApi.Encoders;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ namespace NeoCortexApiSample
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            //NeoCortexUtils a = new NeoCortexUtils();
+
+            NeoCortexUtils.BinarizeImage("", 130, "");
             //
             // Starts experiment that demonstrates how to learn spatial patterns.
             SpatialPatternLearning experiment = new SpatialPatternLearning();

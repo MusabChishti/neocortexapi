@@ -26,8 +26,11 @@ namespace NeoCortex
         public static string BinarizeImage(string mnistImage, int imageSize, string testName) 
         {
             string binaryImage;
+            mnistImage = "D:\\Code-X\\Capture - Copy.PNG";   // input path of image
+            testName = "a";
 
-            binaryImage = $"{testName}.txt";
+            //binaryImage = $"{testName}.txt";
+            binaryImage = "D:\\Code-X\\abcs.txt"; // output path
 
             if (File.Exists(binaryImage))
                 File.Delete(binaryImage);
@@ -39,15 +42,17 @@ namespace NeoCortex
             return binaryImage;
         }
 
-        /// <summary>
-        /// Draws the bitmap from array of active columns.
-        /// </summary>
-        /// <param name="twoDimArray">Array of active columns.</param>
-        /// <param name="width">Output width.</param>
-        /// <param name="height">Output height.</param>
-        /// <param name="filePath">The bitmap PNG filename.</param>
-        /// <param name="text">Text to be written.</param>
-        public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, string text = null)
+
+
+            /// <summary>
+            /// Draws the bitmap from array of active columns.
+            /// </summary>
+            /// <param name="twoDimArray">Array of active columns.</param>
+            /// <param name="width">Output width.</param>
+            /// <param name="height">Output height.</param>
+            /// <param name="filePath">The bitmap PNG filename.</param>
+            /// <param name="text">Text to be written.</param>
+            public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, string text = null)
         {
             DrawBitmap(twoDimArray, width, height, filePath, Color.Black, Color.Green, text);
         }

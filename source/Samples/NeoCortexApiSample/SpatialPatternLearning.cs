@@ -1,4 +1,6 @@
-﻿using NeoCortex;
+﻿using Daenet.ImageBinarizerLib;
+using Daenet.ImageBinarizerLib.Entities;
+using NeoCortex;
 using NeoCortexApi;
 using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
@@ -74,7 +76,7 @@ namespace NeoCortexApiSample
             //
             // We create here 100 random input values.
             List<double> inputValues = new List<double>();
-
+ 
             for (int i = 0; i < (int)max; i++)
             {
                 inputValues.Add((double)i);
@@ -255,9 +257,28 @@ namespace NeoCortexApiSample
                     Debug.WriteLine(val.Value);
                 }
                 //NeoCortexUtils.DrawBitmap(thresholdvalues)
+               // NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
             }
-            
+            //BinarizerParams binarizerParams = new BinarizerParams
+            //{
+            //    RedThreshold = 200,
+            //    GreenThreshold = 200,
+            //    BlueThreshold = 200,
+            //    ImageWidth = 64,  // Set the desired width of the output image
+            //    ImageHeight = 64, // Set the desired height of the output image
+            //                      // ... other parameters
+            //};
+
+            //ImageBinarizer imageBinarizer = new ImageBinarizer(binarizerParams);
+
+            //binarizerParams.InputImagePath = "D:/Code-X/Capture.jpg";
+            //imageBinarizer.Run(); // its not working
+
+
+
+
+
         }
         //..Trying to Implement Image Binarizer
         public class ImageBinarization()
