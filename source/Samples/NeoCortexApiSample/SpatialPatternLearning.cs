@@ -288,9 +288,13 @@ namespace NeoCortexApiSample
 
             //.. Set the binarization threshold (adjust as needed)
             int threshold = 128;
+
+            // Instantiate the class
+            ImageBinarization imageBinarization = new ImageBinarization();
+
         }
        
 
     }
     }
-}
+
