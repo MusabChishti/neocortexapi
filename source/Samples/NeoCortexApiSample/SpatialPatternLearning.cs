@@ -289,8 +289,12 @@ namespace NeoCortexApiSample
             //.. Set the binarization threshold (adjust as needed)
             int threshold = 128;
 
-            // Instantiate the class
+            // ..Instantiate the class
             ImageBinarization imageBinarization = new ImageBinarization();
+
+            //.. Get the binary values as a 2D array
+            int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
+
 
         }
        
