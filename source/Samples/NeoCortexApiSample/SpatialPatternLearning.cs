@@ -256,7 +256,7 @@ namespace NeoCortexApiSample
                 {
                     Debug.WriteLine(val.Value);
                 }
-                //NeoCortexUtils.DrawBitmap(thresholdvalues)
+                NeoCortexUtils.DrawBitmap(thresholdvalues) // To draw bitmaps
                 NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
 
             }
