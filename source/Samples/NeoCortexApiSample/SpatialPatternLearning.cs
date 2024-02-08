@@ -296,6 +296,11 @@ namespace NeoCortexApiSample
             int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
 
 
+
+            //..
+            imageBinarization.PrintBinaryValues(binaryValues);
+
+
         }
        
 
