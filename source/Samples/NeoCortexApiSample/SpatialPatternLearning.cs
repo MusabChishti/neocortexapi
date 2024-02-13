@@ -232,9 +232,7 @@ namespace NeoCortexApiSample
                 Dictionary<int, double> thresholdvalues = new Dictionary<int, double>();
 
                 int key = 0; //keys for the new dictionary thresholdvalues
-                var threshold = 5; // Threshold value to sort the probabilities values to either 0 or 1
-
-               // int key = 0;
+               
                 var thresholds = 5;     // just declared the variable for segrigating values between 0 and 1
 
                 foreach (double val in values)
@@ -260,7 +258,7 @@ namespace NeoCortexApiSample
                 NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
 
             }
-            //BinarizerParams binarizerParams = new BinarizerParams
+            BinarizerParams binarizerParams = new BinarizerParams //++----
             //{
             //    RedThreshold = 200,
             //    GreenThreshold = 200,
