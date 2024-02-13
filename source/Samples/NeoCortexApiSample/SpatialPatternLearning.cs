@@ -297,7 +297,7 @@ namespace NeoCortexApiSample
 
 
 
-            //..
+            //..// Print the binary values to the console
             imageBinarization.PrintBinaryValues(binaryValues);
 
 
