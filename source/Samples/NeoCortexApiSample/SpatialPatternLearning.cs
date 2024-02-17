@@ -258,15 +258,15 @@ namespace NeoCortexApiSample
                 NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
 
             }
-            BinarizerParams binarizerParams = new BinarizerParams //++----
-            //{
-            //    RedThreshold = 200,
-            //    GreenThreshold = 200,
-            //    BlueThreshold = 200,
-            //    ImageWidth = 64,  // Set the desired width of the output image
-            //    ImageHeight = 64, // Set the desired height of the output image
-            //                      // ... other parameters
-            //};
+            BinarizerParams binarizerParams = new BinarizerParams 
+            {
+               RedThreshold = 200,
+               GreenThreshold = 200,
+               BlueThreshold = 200,
+               ImageWidth = 64,  // Set the desired width of the output image
+               ImageHeight = 64, // Set the desired height of the output image
+                                 // ... other parameters
+            }; //++----
 
             //ImageBinarizer imageBinarizer = new ImageBinarizer(binarizerParams);
 
