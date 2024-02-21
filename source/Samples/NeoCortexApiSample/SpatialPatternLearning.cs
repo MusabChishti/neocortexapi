@@ -232,9 +232,7 @@ namespace NeoCortexApiSample
                 Dictionary<int, double> thresholdvalues = new Dictionary<int, double>();
 
                 int key = 0; //keys for the new dictionary thresholdvalues
-                var threshold = 5; // Threshold value to sort the probabilities values to either 0 or 1
-
-               // int key = 0;
+               
                 var thresholds = 5;     // just declared the variable for segrigating values between 0 and 1
 
                 foreach (double val in values)
@@ -256,19 +254,24 @@ namespace NeoCortexApiSample
                 {
                     Debug.WriteLine(val.Value);
                 }
+
                 //NeoCortexUtils.DrawBitmap(thresholdvalues)
                 NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
+                //NeoCortexUtils.DrawBitmap(thresholdvalues); // To draw bitmaps
+                NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
+
+
             }
-            //BinarizerParams binarizerParams = new BinarizerParams
-            //{
-            //    RedThreshold = 200,
-            //    GreenThreshold = 200,
-            //    BlueThreshold = 200,
-            //    ImageWidth = 64,  // Set the desired width of the output image
-            //    ImageHeight = 64, // Set the desired height of the output image
-            //                      // ... other parameters
-            //};
+            BinarizerParams binarizerParams = new BinarizerParams 
+            {
+               RedThreshold = 200,
+               GreenThreshold = 200,
+               BlueThreshold = 200,
+               ImageWidth = 64,  // Set the desired width of the output image
+               ImageHeight = 64, // Set the desired height of the output image
+                                 // ... other parameters
+            }; //++----
 
             //ImageBinarizer imageBinarizer = new ImageBinarizer(binarizerParams);
 
@@ -286,11 +289,30 @@ namespace NeoCortexApiSample
         //    //.. Replace "inputImage.jpg" with the path to your input image
         //    string inputImagePath = "C:\\Users\\rehma\\Pictures\\Screenshots\\ABC.png";
 
+
         //    //.. Set the binarization threshold (adjust as needed)
         //    int threshold = 128;
         //}
+
+            //.. Set the binarization threshold (adjust as needed)
+           // int threshold = 128;
+
+            // ..Instantiate the class
+           // ImageBinarization imageBinarization = new ImageBinarization();
+
+            //.. Get the binary values as a 2D array
+           // int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
+
+
+
+            //..Print the binary values to the console
+             //imageBinarization.PrintBinaryValues(binaryValues);
+
+
+        }
+
        
 
     }
-    }
+    
 
