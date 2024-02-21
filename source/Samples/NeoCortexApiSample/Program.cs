@@ -4,6 +4,8 @@ using NeoCortexApi.Encoders;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using static NeoCortexApiSample.MultiSequenceLearning;
 
@@ -26,6 +28,11 @@ namespace NeoCortexApiSample
             // Starts experiment that demonstrates how to learn spatial patterns.
             SpatialPatternLearning experiment = new SpatialPatternLearning();
             experiment.Run();
+
+            string file = "D:\\Code-X\\abcs.txt";
+            StreamReader r = new StreamReader(file);
+            Console.WriteLine(r.ReadToEnd());
+            Debug.WriteLine(r.GetType());
 
             //
             // Starts experiment that demonstrates how to learn spatial patterns.

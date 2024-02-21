@@ -257,7 +257,7 @@ namespace NeoCortexApiSample
                     Debug.WriteLine(val.Value);
                 }
                 //NeoCortexUtils.DrawBitmap(thresholdvalues)
-               // NeoCortexUtils.BinarizeImage("767666", 78, "989877");
+                NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
             }
             //BinarizerParams binarizerParams = new BinarizerParams
@@ -281,16 +281,16 @@ namespace NeoCortexApiSample
 
         }
         //..Trying to Implement Image Binarizer
-        public class ImageBinarization()
-        {
-            //.. Replace "inputImage.jpg" with the path to your input image
-            string inputImagePath = "C:\\Users\\rehma\\Pictures\\Screenshots\\ABC.png";
+        //public class ImageBinarization()
+        //{
+        //    //.. Replace "inputImage.jpg" with the path to your input image
+        //    string inputImagePath = "C:\\Users\\rehma\\Pictures\\Screenshots\\ABC.png";
 
-            //.. Set the binarization threshold (adjust as needed)
-            int threshold = 128;
-        }
+        //    //.. Set the binarization threshold (adjust as needed)
+        //    int threshold = 128;
+        //}
        
 
     }
     }
-}
+
