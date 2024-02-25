@@ -217,9 +217,10 @@ namespace NeoCortexApiSample
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
-                Debug.WriteLine(inpSdr);
 
+                Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
+                
 
                 var probabilities = sp.Reconstruct(actCols);
 
@@ -310,8 +311,8 @@ namespace NeoCortexApiSample
         //imageBinarization.PrintBinaryValues(binaryValues);
 
         //..analyzing binarizer output
-        Console.WriteLine("Image binarization complete. Press any key to exit.");
-        Console.ReadKey();
+       // Console.WriteLine ("Image binarization complete. Press any key to exit.");
+       // Console.ReadKey();
 
 
         }
