@@ -231,31 +231,28 @@ namespace NeoCortexApiSample
                 //Collecting the permancences value and applying threshold and analyzing it
 
                 Dictionary<int, double>.ValueCollection values = probabilities.Values;
-                Dictionary<int, double> thresholdvalues = new Dictionary<int, double>();
+               int[] thresholdvalues = new int[inpSdr.Length];
 
                 int key = 0; //keys for the new dictionary thresholdvalues
                
                 var thresholds = 5;     // just declared the variable for segrigating values between 0 and 1
 
-                foreach (double val in values)
+                foreach (var val in values)
                 {
                     if (val > thresholds)
                     {
-                        thresholdvalues.Add(key, 1);
+                        thresholdvalues[key] = 1;
                         key++;
                     }
                     else
                     {
-                        thresholdvalues.Add(key, 0);
+                        thresholdvalues[key] = 0;
                         key++;
                     }
 
 
                 }
-                foreach (var val in thresholdvalues)
-                {
-                    Debug.WriteLine(val.Value);
-                }
+               
 
                 //NeoCortexUtils.DrawBitmap(thresholdvalues)
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
