@@ -314,11 +314,11 @@ namespace NeoCortexApiSample
         //Console.WriteLine("Image binarization complete. Press any key to exit.");
         //Console.ReadKey();
 
+
         public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
         {
             // Load the input image
             using (Bitmap inputImage = new Bitmap(inputImagePath))
-
 
 
 
