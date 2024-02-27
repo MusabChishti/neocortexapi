@@ -9,6 +9,7 @@ using NeoCortexApi.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 
 namespace NeoCortexApiSample
@@ -310,11 +311,20 @@ namespace NeoCortexApiSample
         //imageBinarization.PrintBinaryValues(binaryValues);
 
         //..analyzing binarizer output
-        Console.WriteLine("Image binarization complete. Press any key to exit.");
-        Console.ReadKey();
+        //Console.WriteLine("Image binarization complete. Press any key to exit.");
+        //Console.ReadKey();
+
+        public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+        {
+            // Load the input image
+            using (Bitmap inputImage = new Bitmap(inputImagePath))
+
+
 
 
         }
+
+
 
        
 
