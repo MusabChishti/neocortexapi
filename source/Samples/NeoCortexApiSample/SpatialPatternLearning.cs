@@ -253,12 +253,28 @@ namespace NeoCortexApiSample
 
 
                 }
-               
+                int rows = 10; // Example: 10 rows
+                int cols = 20; // Example: 20 columns
 
-                //NeoCortexUtils.DrawBitmap(thresholdvalues)
+                // Create a two-dimensional array with the specified dimensions
+                int[,] twoDArray = new int[rows, cols];
+
+                // Convert the one-dimensional array to a two-dimensional array
+                int index = 0;
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < cols; j++)
+                    {
+                        twoDArray[i, j] = thresholdvalues[index];
+                        index++;
+                    }
+                }
+                
+
+                NeoCortexUtils.DrawBitmap(twoDArray,1024, 1024, "C:\\Users\\nithi\\My Files");// Drawing bitmap
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
-                //NeoCortexUtils.DrawBitmap(thresholdvalues); // To draw bitmaps
+              
                 //NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
 
 
@@ -309,20 +325,20 @@ namespace NeoCortexApiSample
         //imageBinarization.PrintBinaryValues(binaryValues);
 
         //..analyzing binarizer output
-<<<<<<< HEAD
+
         //Console.WriteLine("Image binarization complete. Press any key to exit.");
         //Console.ReadKey();
 
 
-        public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
-        {
+       // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+       // {
             // Load the input image
-            using (Bitmap inputImage = new Bitmap(inputImagePath))
+          //  using (Bitmap inputImage = new Bitmap(inputImagePath))
 
-=======
+
        // Console.WriteLine ("Image binarization complete. Press any key to exit.");
        // Console.ReadKey();
->>>>>>> befe2f597b5d2a84870b9294dc9d545dec95b006
+
 
 
         }

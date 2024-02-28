@@ -129,7 +129,8 @@ namespace NeoCortex
             var fontFamily = new FontFamily(System.Drawing.Text.GenericFontFamilies.SansSerif);
             g.DrawString(text, new Font(fontFamily, 32), SystemBrushes.Control, new PointF(0, 0));
 
-            myBitmap.Save(filePath, ImageFormat.Png);
+           
+           myBitmap.Save(filePath, ImageFormat.Png);
         }
 
         /// <summary>
