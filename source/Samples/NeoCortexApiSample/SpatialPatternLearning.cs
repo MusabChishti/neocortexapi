@@ -57,7 +57,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 1;
+            double max = 200;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -248,7 +248,7 @@ namespace NeoCortexApiSample
 
                 int key = 0; //keys for the new dictionary thresholdvalues
 
-                var thresholds = 5;     // just declared the variable for segrigating values between 0 and 1
+                var thresholds = 2;     // just declared the variable for segrigating values between 0 and 1
 
                 foreach (var val in values)
                 {
@@ -267,26 +267,11 @@ namespace NeoCortexApiSample
                 }
 
 
+                int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
+                var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
-                //int rows = 10; // Example: 10 rows
-                //int cols = 20; // Example: 20 columns
-
-                //// Create a two-dimensional array with the specified dimensions
-                //int[,] twoDArray = new int[rows, cols];
-
-                //// Convert the one-dimensional array to a two-dimensional array
-                //int index = 0;
-                //for (int i = 0; i < rows; i++)
-                //{
-                //    for (int j = 0; j < cols; j++)
-                //    {
-                //        twoDArray[i, j] = thresholdvalues[index];
-                //        index++;
-                //    }
-                //}
-
-
-                //  NeoCortexUtils.DrawBitmap(twoDArray,1024, 1024, "C:\\Users\\nithi\\My Files");// Drawing bitmap
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}out.png", Color.Gray, Color.Green, text: null);
+                
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
 
