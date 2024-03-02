@@ -219,6 +219,7 @@ namespace NeoCortexApiSample
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
+            Directory.Delete(outFolder, true);
             Directory.CreateDirectory(outFolder);
 
             foreach (var input in inputValues)
@@ -266,13 +267,21 @@ namespace NeoCortexApiSample
 
 
                 }
+                var intersection = inpSdr.Intersect(thresholdvalues);
 
+                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
+                var similarity = (double)intersection.Count() / (inpSdr.Union(thresholdvalues).Count());
+
+                Console.WriteLine("Similarity: " + similarity);
+                var similaritystrng= similarity.ToString();
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
-                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}out.png", Color.Gray, Color.Green, text: null);
-                
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+
+               
+
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
 
@@ -330,6 +339,8 @@ namespace NeoCortexApiSample
             //Console.WriteLine("Image binarization complete. Press any key to exit.");
             //Console.ReadKey();
 
+            public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+
 
             // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
             // {
@@ -379,7 +390,10 @@ namespace NeoCortexApiSample
 
             //            // Print the value of i and its corresponding bucket index for debugging purposes.
             //            Console.WriteLine($"Encoded {i} into bucket {bucketIndex}");
+
+
             //        }
+
             //    }
 
 
