@@ -57,7 +57,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 200;
+            double max = 1;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -233,6 +233,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
+                Console.WriteLine(actCols);
 
 
                 var probabilities = sp.Reconstruct(actCols);
