@@ -57,7 +57,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 300;
+            double max = 200;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -219,6 +219,7 @@ namespace NeoCortexApiSample
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
+            Directory.Delete(outFolder, true);
             Directory.CreateDirectory(outFolder);
 
             foreach (var input in inputValues)
@@ -265,13 +266,21 @@ namespace NeoCortexApiSample
 
 
                 }
+                var intersection = inpSdr.Intersect(thresholdvalues);
 
+                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
+                var similarity = (double)intersection.Count() / (inpSdr.Union(thresholdvalues).Count());
+
+                Console.WriteLine("Similarity: " + similarity);
+                var similaritystrng= similarity.ToString();
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
-                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}out.png", Color.Gray, Color.Green, text: null);
-                
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+
+               
+
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
 
