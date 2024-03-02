@@ -338,6 +338,8 @@ namespace NeoCortexApiSample
             //Console.WriteLine("Image binarization complete. Press any key to exit.");
             //Console.ReadKey();
 
+            public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+
 
             // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
             // {
@@ -387,7 +389,10 @@ namespace NeoCortexApiSample
 
             //            // Print the value of i and its corresponding bucket index for debugging purposes.
             //            Console.WriteLine($"Encoded {i} into bucket {bucketIndex}");
+
+
             //        }
+
             //    }
 
 
