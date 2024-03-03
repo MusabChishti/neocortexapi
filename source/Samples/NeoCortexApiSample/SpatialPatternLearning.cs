@@ -57,7 +57,11 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
+<<<<<<< HEAD
             double max = 300;
+=======
+            double max = 200;
+>>>>>>> 2c1cff69f21d612b1d3cfef4b4f1f004aad6123e
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -234,7 +238,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
-                Console.WriteLine(actCols);
+                
 
 
                 var probabilities = sp.Reconstruct(actCols);
@@ -267,12 +271,18 @@ namespace NeoCortexApiSample
 
 
                 }
-                var intersection = inpSdr.Intersect(thresholdvalues);
+               
+                int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+                var similarity = (double)matchingCount / inpSdr.Length * 100;
+                Console.WriteLine($"Similarity: {similarity}%");
 
+<<<<<<< HEAD
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
                 var similarity = (double)intersection.Count() / (inpSdr.Union(thresholdvalues).Count());
 
                 Console.WriteLine("Similarity is = " + similarity*100);
+=======
+>>>>>>> 2c1cff69f21d612b1d3cfef4b4f1f004aad6123e
                 var similaritystrng= similarity.ToString();
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
