@@ -57,7 +57,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 1;
+            double max = 200;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -234,7 +234,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
-                Console.WriteLine(actCols);
+                
 
 
                 var probabilities = sp.Reconstruct(actCols);
@@ -267,12 +267,11 @@ namespace NeoCortexApiSample
 
 
                 }
-                var intersection = inpSdr.Intersect(thresholdvalues);
+               
+                int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+                var similarity = (double)matchingCount / inpSdr.Length * 100;
+                Console.WriteLine($"Similarity: {similarity}%");
 
-                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
-                var similarity = (double)intersection.Count() / (inpSdr.Union(thresholdvalues).Count());
-
-                Console.WriteLine("Similarity: " + similarity);
                 var similaritystrng= similarity.ToString();
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
@@ -339,7 +338,7 @@ namespace NeoCortexApiSample
             //Console.WriteLine("Image binarization complete. Press any key to exit.");
             //Console.ReadKey();
 
-            public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+            //public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
 
 
             // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
