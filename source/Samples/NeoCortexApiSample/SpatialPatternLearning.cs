@@ -57,7 +57,11 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 1;
+<<<<<<< HEAD
+            double max = 300;
+=======
+            double max = 200;
+>>>>>>> 2c1cff69f21d612b1d3cfef4b4f1f004aad6123e
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -219,6 +223,7 @@ namespace NeoCortexApiSample
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
+            Directory.Delete(outFolder, true);
             Directory.CreateDirectory(outFolder);
 
             foreach (var input in inputValues)
@@ -233,6 +238,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
+                
 
 
                 var probabilities = sp.Reconstruct(actCols);
@@ -248,7 +254,7 @@ namespace NeoCortexApiSample
 
                 int key = 0; //keys for the new dictionary thresholdvalues
 
-                var thresholds = 5;     // just declared the variable for segrigating values between 0 and 1
+                var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
 
                 foreach (var val in values)
                 {
@@ -265,28 +271,27 @@ namespace NeoCortexApiSample
 
 
                 }
+               
+                int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+                var similarity = (double)matchingCount / inpSdr.Length * 100;
+                Console.WriteLine($"Similarity: {similarity}%");
 
+<<<<<<< HEAD
+                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
+                var similarity = (double)intersection.Count() / (inpSdr.Union(thresholdvalues).Count());
 
+                Console.WriteLine("Similarity is = " + similarity*100);
+=======
+>>>>>>> 2c1cff69f21d612b1d3cfef4b4f1f004aad6123e
+                var similaritystrng= similarity.ToString();
 
-                //int rows = 10; // Example: 10 rows
-                //int cols = 20; // Example: 20 columns
+                int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
+                var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
-                //// Create a two-dimensional array with the specified dimensions
-                //int[,] twoDArray = new int[rows, cols];
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
-                //// Convert the one-dimensional array to a two-dimensional array
-                //int index = 0;
-                //for (int i = 0; i < rows; i++)
-                //{
-                //    for (int j = 0; j < cols; j++)
-                //    {
-                //        twoDArray[i, j] = thresholdvalues[index];
-                //        index++;
-                //    }
-                //}
+               
 
-
-                //  NeoCortexUtils.DrawBitmap(twoDArray,1024, 1024, "C:\\Users\\nithi\\My Files");// Drawing bitmap
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
 
 
@@ -344,6 +349,8 @@ namespace NeoCortexApiSample
             //Console.WriteLine("Image binarization complete. Press any key to exit.");
             //Console.ReadKey();
 
+            //public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+
 
             // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
             // {
@@ -393,7 +400,10 @@ namespace NeoCortexApiSample
 
             //            // Print the value of i and its corresponding bucket index for debugging purposes.
             //            Console.WriteLine($"Encoded {i} into bucket {bucketIndex}");
+
+
             //        }
+
             //    }
 
 
