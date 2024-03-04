@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace NeoCortex
 {
@@ -23,11 +25,11 @@ namespace NeoCortex
         /// <param name="imageSize"></param>
         /// <param name="testName"></param>
         /// <returns></returns>
-        public static string BinarizeImage(string mnistImage, int imageSize, string testName) 
+        public static string BinarizeImage(string mnistImage, int imageSize, string testName)
         {
             string binaryImage;
-            mnistImage = "E:\\Code-X\\input.PNG";   // input path of image
-            
+            mnistImage = "E:\\Code-X\\Capture - Copy.PNG";   // input path of image
+            testName = "a";
 
             //binaryImage = $"{testName}.txt";
             binaryImage = "E:\\Code-X\\abcs.txt"; // output path
@@ -44,15 +46,15 @@ namespace NeoCortex
 
 
 
-            /// <summary>
-            /// Draws the bitmap from array of active columns.
-            /// </summary>
-            /// <param name="twoDimArray">Array of active columns.</param>
-            /// <param name="width">Output width.</param>
-            /// <param name="height">Output height.</param>
-            /// <param name="filePath">The bitmap PNG filename.</param>
-            /// <param name="text">Text to be written.</param>
-            public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, string text = null)
+        /// <summary>
+        /// Draws the bitmap from array of active columns.
+        /// </summary>
+        /// <param name="twoDimArray">Array of active columns.</param>
+        /// <param name="width">Output width.</param>
+        /// <param name="height">Output height.</param>
+        /// <param name="filePath">The bitmap PNG filename.</param>
+        /// <param name="text">Text to be written.</param>
+        public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, string text = null)
         {
             DrawBitmap(twoDimArray, width, height, filePath, Color.Black, Color.Green, text);
         }
@@ -129,8 +131,7 @@ namespace NeoCortex
             var fontFamily = new FontFamily(System.Drawing.Text.GenericFontFamilies.SansSerif);
             g.DrawString(text, new Font(fontFamily, 32), SystemBrushes.Control, new PointF(0, 0));
 
-           
-           myBitmap.Save(filePath, ImageFormat.Png);
+            myBitmap.Save(filePath, ImageFormat.Png);
         }
 
         /// <summary>

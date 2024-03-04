@@ -30,8 +30,8 @@ namespace NeoCortexApiSample
             experiment.Run();
 
             //string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
-           // StreamReader r = new StreamReader(file);
-           // Console.WriteLine(r.ReadToEnd());
+            //StreamReader r = new StreamReader(file);
+            //Console.WriteLine(r.ReadToEnd());
             //Debug.WriteLine(r.GetType());
 
             //
