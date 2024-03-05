@@ -57,7 +57,11 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 200;
+
+            double max = 300;
+
+           // double max = 200;
+
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -234,6 +238,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
+                
 
 
                 var probabilities = sp.Reconstruct(actCols);
@@ -249,7 +254,7 @@ namespace NeoCortexApiSample
 
                 int key = 0; //keys for the new dictionary thresholdvalues
 
-                var thresholds = 2;     // just declared the variable for segrigating values between 0 and 1
+                var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
 
                 foreach (var val in values)
                 {
@@ -266,13 +271,19 @@ namespace NeoCortexApiSample
 
 
                 }
-                var intersection = inpSdr.Intersect(thresholdvalues);
+               
+                int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+                var similarity = (double)matchingCount / inpSdr.Length * 100;
+                Console.WriteLine($"Similarity: {similarity}%");
+
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
-                var similarity = (double)intersection.Count() / (inpSdr.Union(thresholdvalues).Count());
+                
 
-                Console.WriteLine("Similarity: " + similarity);
+               
+
                 var similaritystrng= similarity.ToString();
+                
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
@@ -338,7 +349,7 @@ namespace NeoCortexApiSample
             //Console.WriteLine("Image binarization complete. Press any key to exit.");
             //Console.ReadKey();
 
-            public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
+            //public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
 
                 // Create a 2D array to store binary values
             int[,] binaryValues = new int[height, width];

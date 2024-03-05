@@ -21,15 +21,19 @@ namespace NeoCortexApiSample
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            //NeoCortexUtils a = new NeoCortexUtils();
+            NeoCortexUtils a = new NeoCortexUtils();
 
-          //  NeoCortexUtils.BinarizeImage("", 130, "");
+            NeoCortexUtils.BinarizeImage("", 130, "");  // Adeleh workin on binarized image 
             //
-            // Starts experiment that demonstrates how to learn spatial patterns.
+            //Starts experiment that demonstrates how to learn spatial patterns.
             SpatialPatternLearning experiment = new SpatialPatternLearning();
             experiment.Run();
 
+
+            //string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+
            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+
             //StreamReader r = new StreamReader(file);
             //Console.WriteLine(r.ReadToEnd());
             //Debug.WriteLine(r.GetType());
