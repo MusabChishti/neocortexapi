@@ -45,7 +45,6 @@ namespace NeoCortex
         }
 
 
-
         /// <summary>
         /// Draws the bitmap from array of active columns.
         /// </summary>
@@ -272,7 +271,6 @@ namespace NeoCortex
         }
 
 
-
         private static Color GetColor(decimal redStartVal, decimal yellowStartVal, decimal greenStartVal, decimal val)
         {
             // color points
@@ -364,8 +362,6 @@ namespace NeoCortex
             return rgb;
         }
 
-        /// <summary>
-        /// 
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
