@@ -354,6 +354,9 @@ namespace NeoCortexApiSample
                 // Create a 2D array to store binary values
             int[,] binaryValues = new int[height, width];
 
+            // Loop through each pixel in the input image
+            for (int y = 0; y < height; y++)
+
 
             // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
             // {
@@ -361,53 +364,53 @@ namespace NeoCortexApiSample
             //  using (Bitmap inputImage = new Bitmap(inputImagePath))
 
 
-            // Console.WriteLine ("Image binarization complete. Press any key to exit.");
-            // Console.ReadKey();
+                // Console.WriteLine ("Image binarization complete. Press any key to exit.");
+                // Console.ReadKey();
 
-            //    public void ScalarEncodingGetBucketIndexNonPeriodic()
-            //    {
-            //        // Create a directory to save the bitmap output.
-            //        string outFolder = nameof(ScalarEncodingGetBucketIndexNonPeriodic);
+                //    public void ScalarEncodingGetBucketIndexNonPeriodic()
+                //    {
+                //        // Create a directory to save the bitmap output.
+                //        string outFolder = nameof(ScalarEncodingGetBucketIndexNonPeriodic);
 
-            //        Directory.CreateDirectory(outFolder);
+                //        Directory.CreateDirectory(outFolder);
 
-            //        DateTime now = DateTime.Now;
+                //        DateTime now = DateTime.Now;
 
-            //        // Create a new ScalarEncoder with the given configuration.
-            //        ScalarEncoder encoder = new ScalarEncoder(new Dictionary<string, object>()
-            //{
-            //    { "W", 21},
-            //    { "N", 1024},
-            //    { "Radius", -1.0},
-            //    { "MinVal", 0.0},
-            //    { "MaxVal", 100.0 },
-            //    { "Periodic", false},
-            //    { "Name", "scalar"},
-            //    { "ClipInput", false},
-            //});
+                //        // Create a new ScalarEncoder with the given configuration.
+                //        ScalarEncoder encoder = new ScalarEncoder(new Dictionary<string, object>()
+                //{
+                //    { "W", 21},
+                //    { "N", 1024},
+                //    { "Radius", -1.0},
+                //    { "MinVal", 0.0},
+                //    { "MaxVal", 100.0 },
+                //    { "Periodic", false},
+                //    { "Name", "scalar"},
+                //    { "ClipInput", false},
+                //});
 
-            //        // Iterate through a range of numbers and encode them using the ScalarEncoder.
-            //        for (decimal i = 0.0M; i < (long)encoder.MaxVal; i += 0.1M)
-            //        {
-            //            // Encode the number and get the corresponding bucket index.
-            //            var result = encoder.Encode(i);
+                //        // Iterate through a range of numbers and encode them using the ScalarEncoder.
+                //        for (decimal i = 0.0M; i < (long)encoder.MaxVal; i += 0.1M)
+                //        {
+                //            // Encode the number and get the corresponding bucket index.
+                //            var result = encoder.Encode(i);
 
-            //            int? bucketIndex = encoder.GetBucketIndex(i);
+                //            int? bucketIndex = encoder.GetBucketIndex(i);
 
-            //            // Convert the encoded result into a 2D array and transpose it.
-            //            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(result, (int)Math.Sqrt(result.Length), (int)Math.Sqrt(result.Length));
-            //            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
+                //            // Convert the encoded result into a 2D array and transpose it.
+                //            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(result, (int)Math.Sqrt(result.Length), (int)Math.Sqrt(result.Length));
+                //            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
-            //            // Draw a bitmap of the encoded result with the corresponding bucket index and save it to the output folder.
-            //            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{i}.png", Color.Gray, Color.Green, text: $"v:{i} /b:{bucketIndex}");
+                //            // Draw a bitmap of the encoded result with the corresponding bucket index and save it to the output folder.
+                //            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{i}.png", Color.Gray, Color.Green, text: $"v:{i} /b:{bucketIndex}");
 
-            //            // Print the value of i and its corresponding bucket index for debugging purposes.
-            //            Console.WriteLine($"Encoded {i} into bucket {bucketIndex}");
+                //            // Print the value of i and its corresponding bucket index for debugging purposes.
+                //            Console.WriteLine($"Encoded {i} into bucket {bucketIndex}");
 
 
-            //        }
+                //        }
 
-            //    }
+                //    }
 
 
 
