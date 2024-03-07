@@ -332,8 +332,24 @@ namespace NeoCortexApiSample
                 Console.WriteLine($"Similarity: {similarity}%");
 
 
+<<<<<<< HEAD
+
+
+                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
+
+
+
+
+
                 var similaritystrng = similarity.ToString();
 
+
+                
+
+=======
+                var similaritystrng = similarity.ToString();
+
+>>>>>>> 4860bd77ff4cfb26e5e32f73b592e8469a0914fa
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
@@ -342,6 +358,12 @@ namespace NeoCortexApiSample
 
 
             }
+<<<<<<< HEAD
+            
+
+               
+=======
+>>>>>>> 4860bd77ff4cfb26e5e32f73b592e8469a0914fa
 
 
 
@@ -435,6 +457,37 @@ namespace NeoCortexApiSample
 
         }
 
+<<<<<<< HEAD
+            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+
+            string n = "";
+
+            StreamReader r = new StreamReader(file);
+            n = r.ReadToEnd();
+            int[] binarized = new int[n.Length];
+            for (int i = 0; i < n.Length; i++)
+            {
+                // Parse each character to integer
+                if (int.TryParse(n[i].ToString(), out int digit))
+                {
+                    binarized[i] = digit;
+                }
+                else
+                {
+                    // Handle parsing failure, if needed
+                    Console.WriteLine($"Failed to parse character '{n[i]}' at index {i}");
+                }
+
+            }
+            return binarized;
+        }
+
+
+
+        }
+    
+=======
+>>>>>>> 4860bd77ff4cfb26e5e32f73b592e8469a0914fa
     }
 }
 
