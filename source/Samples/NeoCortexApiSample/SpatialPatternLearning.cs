@@ -349,6 +349,9 @@ namespace NeoCortexApiSample
 
             //public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
 
+                // Create a 2D array to store binary values
+            int[,] binaryValues = new int[height, width];
+
 
             // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
             // {
