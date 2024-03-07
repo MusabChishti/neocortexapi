@@ -58,6 +58,10 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
+<<<<<<< HEAD
+            double max = 10;
+=======
+>>>>>>> 3d095ed71eefb187e7b35146948f7dc6e36b9f6a
 
             double max = 1;
 
@@ -275,6 +279,8 @@ namespace NeoCortexApiSample
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
                 Console.WriteLine($"Similarity: {similarity}%");
+                var sim = MathHelpers.CalcArraySimilarity(inpSdr, thresholdvalues);
+                Console.WriteLine(sim);
 
 
 
