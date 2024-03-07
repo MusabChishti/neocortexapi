@@ -8,6 +8,7 @@ using NeoCortexApi.Entities;
 using NeoCortexApi.Network;
 using NeoCortexApi.Utility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -57,15 +58,17 @@ namespace NeoCortexApiSample
                 Random = new ThreadSafeRandom(42),
                 StimulusThreshold = 10,
             };
-
-
             double max = 10;
+            Console.WriteLine("Integer or Image");
+            
+            if (Console.ReadLine() == "INTEGER" ) {
+                
 
 
 
-            //
-            // This dictionary defines a set of typical encoder parameters.
-            Dictionary<string, object> settings = new Dictionary<string, object>()
+                //
+                // This dictionary defines a set of typical encoder parameters.
+                Dictionary<string, object> settings = new Dictionary<string, object>()
             {
                 { "W", 15},
                 { "N", inputBits},
@@ -78,21 +81,51 @@ namespace NeoCortexApiSample
             };
 
 
-            EncoderBase encoder = new ScalarEncoder(settings);
+                EncoderBase encoder = new ScalarEncoder(settings);
 
-            //
-            // We create here 100 random input values.
-            List<double> inputValues = new List<double>();
+                //
+                // We create here 100 random input values.
+                List<double> inputValues = new List<double>();
 
-            for (int i = 0; i < (int)max; i++)
+                for (int i = 0; i < (int)max; i++)
+                {
+                    inputValues.Add((double)i);
+                }
+
+                var sp = RunExperiment(cfg, encoder, inputValues);
+
+                RunRustructuringExperiment(sp, encoder, inputValues);
+            }
+            else
             {
-                inputValues.Add((double)i);
+                // This dictionary defines a set of typical encoder parameters.
+                Dictionary<string, object> settings = new Dictionary<string, object>()
+            {
+                { "W", 15},
+                { "N", inputBits},
+                { "Radius", -1.0},
+                { "MinVal", 0.0},
+                { "Periodic", false},
+                { "Name", "scalar"},
+                { "ClipInput", false},
+                { "MaxVal", max}
+            };
+
+
+                EncoderBase encoder1 = new ScalarEncoder(settings);
+
+                //
+                // We create here 100 random input values.
+                List<double> inputValues1 = new List<double>();
+                var sp1 = RunExperiment(cfg, encoder1, inputValues1);
+                RunRustructuringExperimentImage(sp1);
             }
 
-            var sp = RunExperiment(cfg, encoder, inputValues);
 
-            RunRustructuringExperiment(sp, encoder, inputValues);
+
+           
         }
+       
 
 
 
@@ -295,7 +328,7 @@ namespace NeoCortexApiSample
 
         private static int[] BinarImage()
         {
-            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture - Copy.PNG", 130, "a");
+            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture.PNG", 130, "a");
             string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
 
             // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
@@ -322,7 +355,7 @@ namespace NeoCortexApiSample
             return binarized;
         }
 
-        private static void RunRustructuringExperimentImage(SpatialPooler sp1, EncoderBase encoder, List<double> inputValues)
+        private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
@@ -331,8 +364,9 @@ namespace NeoCortexApiSample
 
 
             var inpSdr = BinarImage();
+            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
 
-            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
+            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
             var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
             NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: null);
@@ -344,11 +378,11 @@ namespace NeoCortexApiSample
             //Collecting the permancences value and applying threshold and analyzing it
 
             Dictionary<int, double>.ValueCollection values = probabilities.Values;
-            int[] thresholdvalues = new int[inpSdr.Length];
+            int[] thresholdvalues = new int[inpSdr1.Length];
 
             int key = 0; //List index
 
-            var thresholds = 7;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            var thresholds = 4;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
 
             foreach (var val in values)
             {
