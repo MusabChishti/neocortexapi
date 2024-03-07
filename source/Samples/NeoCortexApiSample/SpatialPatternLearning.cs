@@ -277,16 +277,33 @@ namespace NeoCortexApiSample
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
                 Console.WriteLine($"Similarity: {similarity}%");
 
+
+
+
+                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
+<<<<<<<<< Temporary merge branch 1
+
+
+
+
                 var similaritystrng = similarity.ToString();
+
+=========
+                
+                var similaritystrng= similarity.ToString();
+                
+>>>>>>>>> Temporary merge branch 2
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
                 NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
+<<<<<<<<< Temporary merge branch 1
             }
-
-
+            
+=========
+               
 
 
 
@@ -377,9 +394,10 @@ namespace NeoCortexApiSample
         }
 
 
+>>>>>>>>> Temporary merge branch 2
+        }
+    
     }
-
-}
 
 
 
