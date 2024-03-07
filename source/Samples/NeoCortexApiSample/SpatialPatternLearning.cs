@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
+
 namespace NeoCortexApiSample
 {
     /// <summary>
@@ -60,7 +61,7 @@ namespace NeoCortexApiSample
 
             double max = 1;
 
-           
+
             //
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
@@ -228,6 +229,7 @@ namespace NeoCortexApiSample
             {
                 var inpSdr = encoder.Encode(input);
 
+                
                 int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
                 var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
@@ -236,7 +238,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
-                
+
 
 
                 var probabilities = sp.Reconstruct(actCols);
@@ -269,153 +271,34 @@ namespace NeoCortexApiSample
 
 
                 }
-               
+
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
                 Console.WriteLine($"Similarity: {similarity}%");
 
 
+
+
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
-                
 
-               
 
-                var similaritystrng= similarity.ToString();
-                
+
+
+                var similaritystrng = similarity.ToString();
+
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
                 NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
-               
-
-                //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
-
-
-                //NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
-
-
-
-                //BinarizerParams binarizerParams = new BinarizerParams 
-                // {
-                //RedThreshold = 200,
-                // GreenThreshold = 200,
-                // BlueThreshold = 200,
-                // ImageWidth = 64,  // Set the desired width of the output image
-                //ImageHeight = 64, // Set the desired height of the output image
-                // ... other parameters
-                //  }; //++----
-
-                //ImageBinarizer imageBinarizer = new ImageBinarizer(binarizerParams);
-
-                //binarizerParams.InputImagePath = "D:/Code-X/Capture.jpg";
-                //imageBinarizer.Run(); // its not working
-
-
-
-
-
             }
-            //..Trying to Implement Image Binarizer
-            //public class ImageBinarization()
-            //{
-            //    //.. Replace "inputImage.jpg" with the path to your input image
-            //    string inputImagePath = "C:\\Users\\rehma\\Pictures\\Screenshots\\ABC.png";
-
-
-            //    //.. Set the binarization threshold (adjust as needed)
-            //    int threshold = 128;
-            //}
-
-            //.. Set the binarization threshold (adjust as needed)
-            // int threshold = 128;
-
-            // ..Instantiate the class
-            // ImageBinarization imageBinarization = new ImageBinarization();
-
-            //.. Get the binary values as a 2D array
-            // int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
-
-
-
-            //..Print the binary values to the console
-            //imageBinarization.PrintBinaryValues(binaryValues);
-
-            //..analyzing binarizer output
-
-            //Console.WriteLine("Image binarization complete. Press any key to exit.");
-            //Console.ReadKey();
-
-            //public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
-
-                // Create a 2D array to store binary values
-            int[,] binaryValues = new int[height, width];
-
-            // Loop through each pixel in the input image
-            for (int y = 0; y < height; y++)
-
-
-            // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
-            // {
-            // Load the input image
-            //  using (Bitmap inputImage = new Bitmap(inputImagePath))
-
-
-                // Console.WriteLine ("Image binarization complete. Press any key to exit.");
-                // Console.ReadKey();
-
-                //    public void ScalarEncodingGetBucketIndexNonPeriodic()
-                //    {
-                //        // Create a directory to save the bitmap output.
-                //        string outFolder = nameof(ScalarEncodingGetBucketIndexNonPeriodic);
-
-                //        Directory.CreateDirectory(outFolder);
-
-                //        DateTime now = DateTime.Now;
-
-                //        // Create a new ScalarEncoder with the given configuration.
-                //        ScalarEncoder encoder = new ScalarEncoder(new Dictionary<string, object>()
-                //{
-                //    { "W", 21},
-                //    { "N", 1024},
-                //    { "Radius", -1.0},
-                //    { "MinVal", 0.0},
-                //    { "MaxVal", 100.0 },
-                //    { "Periodic", false},
-                //    { "Name", "scalar"},
-                //    { "ClipInput", false},
-                //});
-
-                //        // Iterate through a range of numbers and encode them using the ScalarEncoder.
-                //        for (decimal i = 0.0M; i < (long)encoder.MaxVal; i += 0.1M)
-                //        {
-                //            // Encode the number and get the corresponding bucket index.
-                //            var result = encoder.Encode(i);
-
-                //            int? bucketIndex = encoder.GetBucketIndex(i);
-
-                //            // Convert the encoded result into a 2D array and transpose it.
-                //            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(result, (int)Math.Sqrt(result.Length), (int)Math.Sqrt(result.Length));
-                //            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
-
-                //            // Draw a bitmap of the encoded result with the corresponding bucket index and save it to the output folder.
-                //            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{i}.png", Color.Gray, Color.Green, text: $"v:{i} /b:{bucketIndex}");
-
-                //            // Print the value of i and its corresponding bucket index for debugging purposes.
-                //            Console.WriteLine($"Encoded {i} into bucket {bucketIndex}");
-
-
-                //        }
-
-                //    }
-
-
-
+            
         }
+    
     }
-}
 
+}
 
 
        

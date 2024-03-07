@@ -19,24 +19,25 @@ namespace NeoCortexApiSample
         /// and TM.
         /// </summary>
         /// <param name="args"></param>
+        /// 
+
+       
         static void Main(string[] args)
         {
-            //NeoCortexUtils a = new NeoCortexUtils();
+             //NeoCortexUtils a = new NeoCortexUtils();
+            
+            //NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture - Copy.PNG", 130, "a");  // Adeleh workin on binarized image 
 
-            //NeoCortexUtils.BinarizeImage("", 130, "");  // Adeleh workin on binarized image 
-            //
             //Starts experiment that demonstrates how to learn spatial patterns.
             SpatialPatternLearning experiment = new SpatialPatternLearning();
             experiment.Run();
 
 
-            //string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+            
+            
 
-            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
 
-            //StreamReader r = new StreamReader(file);
-            //Console.WriteLine(r.ReadToEnd());
-            //Debug.WriteLine(r.GetType());
+            
 
             //
             // Starts experiment that demonstrates how to learn spatial patterns.
@@ -51,6 +52,35 @@ namespace NeoCortexApiSample
 
             //RunMultiSequenceLearningExperiment();
         }
+        public int[] BinarImage()
+        {
+            NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture - Copy.PNG", 130, "a");
+            string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+
+            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+
+            string n = "";
+
+            StreamReader r = new StreamReader(file);
+            n = r.ReadToEnd();
+            int[] binarized = new int[n.Length];
+            for (int i = 0; i < n.Length; i++)
+            {
+                // Parse each character to integer
+                if (int.TryParse(n[i].ToString(), out int digit))
+                {
+                    binarized[i] = digit;
+                }
+                else
+                {
+                    // Handle parsing failure, if needed
+                    Console.WriteLine($"Failed to parse character '{n[i]}' at index {i}");
+                }
+
+            } return binarized;
+        }
+
+
 
         private static void RunMultiSimpleSequenceLearningExperiment()
         {
