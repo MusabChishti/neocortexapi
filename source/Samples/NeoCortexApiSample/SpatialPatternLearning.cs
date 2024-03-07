@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace NeoCortexApiSample
@@ -109,10 +110,10 @@ namespace NeoCortexApiSample
                 { "Periodic", false},
                 { "Name", "scalar"},
                 { "ClipInput", false},
-                { "MaxVal", max}
+                { "MaxVal", 1.0}
             };
 
-                HtmConfig cfg1 = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
+                HtmConfig cfg1 = new HtmConfig(new int[] { inputBits1 }, new int[] { numColumns })
                 {
                     CellsPerColumn = 10,
                     MaxBoost = maxBoost,
@@ -327,6 +328,7 @@ namespace NeoCortexApiSample
 
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
+                similarity = Math.Round(similarity, 2);
                 Console.WriteLine($"Similarity: {similarity}%");
 
 
@@ -367,7 +369,7 @@ namespace NeoCortexApiSample
                 else
                 {
                     // Handle parsing failure, if needed
-                    Console.WriteLine($"Failed to parse character '{n[i]}' at index {i}");
+                   break;
                 }
 
             }
@@ -383,9 +385,9 @@ namespace NeoCortexApiSample
 
 
             var inpSdr = BinarImage();
-            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
+            //int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
 
-            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
+            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
             var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
             NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: null);
@@ -397,11 +399,11 @@ namespace NeoCortexApiSample
             //Collecting the permancences value and applying threshold and analyzing it
 
             Dictionary<int, double>.ValueCollection values = probabilities.Values;
-            int[] thresholdvalues = new int[inpSdr1.Length];
+            int[] thresholdvalues = new int[inpSdr.Length];
 
             int key = 0; //List index
 
-            var thresholds = 4;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            var thresholds = 10;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
 
             foreach (var val in values)
             {
@@ -421,6 +423,7 @@ namespace NeoCortexApiSample
 
             int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
             var similarity = (double)matchingCount / inpSdr.Length * 100;
+            similarity = Math.Round(similarity,2);
             Console.WriteLine($"Similarity: {similarity}%");
 
             var similaritystrng = similarity.ToString();
