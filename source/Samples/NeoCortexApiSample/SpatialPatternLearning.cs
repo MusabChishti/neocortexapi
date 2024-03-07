@@ -57,7 +57,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
-            double max = 200;
+            double max = 10;
 
             //
             // This dictionary defines a set of typical encoder parameters.
@@ -271,6 +271,8 @@ namespace NeoCortexApiSample
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
                 Console.WriteLine($"Similarity: {similarity}%");
+                var sim = MathHelpers.CalcArraySimilarity(inpSdr, thresholdvalues);
+                Console.WriteLine(sim);
 
                 var similaritystrng= similarity.ToString();
 
