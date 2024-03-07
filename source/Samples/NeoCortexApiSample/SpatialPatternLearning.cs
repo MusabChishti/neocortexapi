@@ -60,9 +60,7 @@ namespace NeoCortexApiSample
 
             double max = 300;
 
-           // double max = 200;
-
-
+           
             //
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
@@ -175,7 +173,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 1000;
+            int maxSPLearningCycles = 100;
 
             int numStableCycles = 0;
 
@@ -243,9 +241,9 @@ namespace NeoCortexApiSample
 
                 var probabilities = sp.Reconstruct(actCols);
 
-                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
-                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
                 //Collecting the permancences value and applying threshold and analyzing it
 
