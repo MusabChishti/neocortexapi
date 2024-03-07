@@ -278,37 +278,51 @@ namespace NeoCortexApiSample
                 Console.WriteLine($"Similarity: {similarity}%");
 
 
-
-
-                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
-<<<<<<<<< Temporary merge branch 1
-
-
-
-
                 var similaritystrng = similarity.ToString();
 
-=========
-                
-                var similaritystrng= similarity.ToString();
-                
->>>>>>>>> Temporary merge branch 2
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
                 NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
-<<<<<<<<< Temporary merge branch 1
+
             }
-            
-=========
-               
 
 
 
         }
-        private void RunRustructuringExperimentImage(SpatialPooler sp1, EncoderBase encoder, List<double> inputValues)
+
+        private static int[] BinarImage()
+        {
+            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture - Copy.PNG", 130, "a");
+            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
+
+            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+
+            string n = "";
+
+            StreamReader r = new StreamReader(file);
+            n = r.ReadToEnd();
+            int[] binarized = new int[n.Length];
+            for (int i = 0; i < n.Length; i++)
+            {
+                // Parse each character to integer
+                if (int.TryParse(n[i].ToString(), out int digit))
+                {
+                    binarized[i] = digit;
+                }
+                else
+                {
+                    // Handle parsing failure, if needed
+                    Console.WriteLine($"Failed to parse character '{n[i]}' at index {i}");
+                }
+
+            }
+            return binarized;
+        }
+
+        private static void RunRustructuringExperimentImage(SpatialPooler sp1, EncoderBase encoder, List<double> inputValues)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
@@ -364,40 +378,9 @@ namespace NeoCortexApiSample
             NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
         }
-        public static int[] BinarImage()
-        {
-            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture - Copy.PNG", 130, "a");
-            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
 
-            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
-
-            string n = "";
-
-            StreamReader r = new StreamReader(file);
-            n = r.ReadToEnd();
-            int[] binarized = new int[n.Length];
-            for (int i = 0; i < n.Length; i++)
-            {
-                // Parse each character to integer
-                if (int.TryParse(n[i].ToString(), out int digit))
-                {
-                    binarized[i] = digit;
-                }
-                else
-                {
-                    // Handle parsing failure, if needed
-                    Console.WriteLine($"Failed to parse character '{n[i]}' at index {i}");
-                }
-
-            }
-            return binarized;
-        }
-
-
->>>>>>>>> Temporary merge branch 2
-        }
-    
     }
+}
 
 
 
