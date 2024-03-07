@@ -34,7 +34,7 @@ namespace NeoCortexApiSample
             double maxBoost = 5.0;
 
             // We will use 200 bits to represent an input vector (pattern).
-            int inputBits = 17160;
+            int inputBits = 200;
 
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
@@ -61,7 +61,7 @@ namespace NeoCortexApiSample
             double max = 10;
             Console.WriteLine("Integer or Image");
             
-            if (Console.ReadLine() == "INTEGER" ) {
+            if (Console.ReadLine() == "Integer" ) {
                 
 
 
@@ -98,11 +98,12 @@ namespace NeoCortexApiSample
             }
             else
             {
+                int inputBits1 = 17160;
                 // This dictionary defines a set of typical encoder parameters.
                 Dictionary<string, object> settings = new Dictionary<string, object>()
             {
                 { "W", 15},
-                { "N", inputBits},
+                { "N", inputBits1},
                 { "Radius", -1.0},
                 { "MinVal", 0.0},
                 { "Periodic", false},
@@ -111,13 +112,31 @@ namespace NeoCortexApiSample
                 { "MaxVal", max}
             };
 
+                HtmConfig cfg1 = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
+                {
+                    CellsPerColumn = 10,
+                    MaxBoost = maxBoost,
+                    DutyCyclePeriod = 100,
+                    MinPctOverlapDutyCycles = minOctOverlapCycles,
+
+                    GlobalInhibition = false,
+                    NumActiveColumnsPerInhArea = 0.02 * numColumns,
+                    PotentialRadius = (int)(0.15 * inputBits1),
+                    LocalAreaDensity = -1,
+                    ActivationThreshold = 10,
+
+                    MaxSynapsesPerSegment = (int)(0.01 * numColumns),
+                    Random = new ThreadSafeRandom(42),
+                    StimulusThreshold = 10,
+                };
+
 
                 EncoderBase encoder1 = new ScalarEncoder(settings);
 
                 //
                 // We create here 100 random input values.
                 List<double> inputValues1 = new List<double>();
-                var sp1 = RunExperiment(cfg, encoder1, inputValues1);
+                var sp1 = RunExperiment(cfg1, encoder1, inputValues1);
                 RunRustructuringExperimentImage(sp1);
             }
 
