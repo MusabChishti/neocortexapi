@@ -173,8 +173,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 100;
-
+            int maxSPLearningCycles = 1000;
             int numStableCycles = 0;
 
             for (int cycle = 0; cycle < maxSPLearningCycles; cycle++)
@@ -241,9 +240,9 @@ namespace NeoCortexApiSample
 
                 var probabilities = sp.Reconstruct(actCols);
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
-                Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
+                //Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
                 //Collecting the permancences value and applying threshold and analyzing it
 
@@ -277,9 +276,6 @@ namespace NeoCortexApiSample
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
                 
-
-               
-
                 var similaritystrng= similarity.ToString();
                 
 
@@ -291,7 +287,6 @@ namespace NeoCortexApiSample
                
 
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
-
 
                 //NeoCortexUtils.BinarizeImage("input", 78, "BinarizeImage"); // To binarize the image
 
@@ -311,10 +306,6 @@ namespace NeoCortexApiSample
 
                 //binarizerParams.InputImagePath = "D:/Code-X/Capture.jpg";
                 //imageBinarizer.Run(); // its not working
-
-
-
-
 
             }
             //..Trying to Implement Image Binarizer
@@ -337,8 +328,6 @@ namespace NeoCortexApiSample
             //.. Get the binary values as a 2D array
             // int[,] binaryValues = imageBinarization.BinarizeAndGetValues(inputImagePath, threshold);
 
-
-
             //..Print the binary values to the console
             //imageBinarization.PrintBinaryValues(binaryValues);
 
@@ -349,8 +338,8 @@ namespace NeoCortexApiSample
 
             //public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
 
-                // Create a 2D array to store binary values
-            int[,] binaryValues = new int[height, width];
+            // Create a 2D array to store binary values
+            //int[,] binaryValues = new int[height, width]; //has error
 
 
             // public int[,] BinarizeAndGetValues(string inputImagePath, int threshold)
