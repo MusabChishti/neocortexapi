@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
+
 namespace NeoCortexApiSample
 {
     /// <summary>
@@ -57,10 +58,14 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
 
+<<<<<<< HEAD
+            double max = 10;
+=======
+>>>>>>> 3d095ed71eefb187e7b35146948f7dc6e36b9f6a
 
-            double max = 300;
+            double max = 1;
 
-           
+
             //
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
@@ -227,6 +232,7 @@ namespace NeoCortexApiSample
             {
                 var inpSdr = encoder.Encode(input);
 
+                
                 int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
                 var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
@@ -235,7 +241,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine(inpSdr);
                 var actCols = sp.Compute(inpSdr, false);
-                
+
 
 
                 var probabilities = sp.Reconstruct(actCols);
@@ -268,22 +274,36 @@ namespace NeoCortexApiSample
 
 
                 }
-               
+
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
                 Console.WriteLine($"Similarity: {similarity}%");
+                var sim = MathHelpers.CalcArraySimilarity(inpSdr, thresholdvalues);
+                Console.WriteLine(sim);
+
+
 
 
                 // Calculate the similarity as the ratio of the intersection to the total number of unique elements
+<<<<<<< HEAD
                 
                 var similaritystrng= similarity.ToString();
                 
+=======
+
+
+
+
+                var similaritystrng = similarity.ToString();
+
+>>>>>>> 4f6a80762ad53d53ca87954a9c2a9d7af312bcd3
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
                 NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
+<<<<<<< HEAD
                
 
                 //NeoCortexUtils.BinarizeImage("767666", 78, "989877");
@@ -398,10 +418,15 @@ namespace NeoCortexApiSample
 
 
 
+=======
+            }
+            
+>>>>>>> 4f6a80762ad53d53ca87954a9c2a9d7af312bcd3
         }
+    
     }
-}
 
+}
 
 
        
