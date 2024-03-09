@@ -25,19 +25,22 @@ namespace NeoCortex
         /// <param name="imageSize"></param>
         /// <param name="testName"></param>
         /// <returns></returns>
-        public static string BinarizeImage(string mnistImage, int imageSize, string testName)
+        public static string BinarizeImage(string mnistImage, int imageSize,string testname)
         {
             string binaryImage;
-            mnistImage = "E:\\Code-X\\Capture - Copy.PNG";   // input path of image
+            mnistImage = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture.PNG";   // input path of image
             
             //testName = "a";
 
 
             //binaryImage = $"{testName}.txt";
-            binaryImage = "E:\\Code-X\\abcs.txt"; // output path
+            binaryImage = "C:\\Users\\nithi\\My Files\\Project\\neocortexapiabcs.txt"; // output path
 
             if (File.Exists(binaryImage))
+            {
                 File.Delete(binaryImage);
+
+            }
 
             ImageBinarizer imageBinarizer = new ImageBinarizer(new BinarizerParams { RedThreshold = 200, GreenThreshold = 200, BlueThreshold = 200, ImageWidth = imageSize, ImageHeight = imageSize, InputImagePath = mnistImage, OutputImagePath = binaryImage });
 
@@ -76,13 +79,17 @@ namespace NeoCortex
             int h = twoDimArray.GetLength(1);
 
             if (w > width || h > height)
+            {
                 throw new ArgumentException("Requested width/height must be greather than width/height inside of array.");
+
+            }
 
             var scale = width / w;
 
             if (scale * w < width)
+            {
                 scale++;
-
+            }
             DrawBitmap(twoDimArray, scale, filePath, inactiveCellColor, activeCellColor, text);
 
         }
@@ -168,7 +175,9 @@ namespace NeoCortex
             }
 
             if (widthOfAll > bmpWidth || heightOfAll > bmpHeight)
+            {
                 throw new ArgumentException("Size of all included arrays must be less than specified 'bmpWidth' and 'bmpHeight'");
+            }
 
             System.Drawing.Bitmap myBitmap = new System.Drawing.Bitmap(bmpWidth, bmpHeight);
             int k = 0;
