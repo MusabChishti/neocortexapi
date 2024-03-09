@@ -65,9 +65,6 @@ namespace NeoCortexApiSample
             if (Console.ReadLine() == "Integer")
             {
 
-
-
-
                 //
                 // This dictionary defines a set of typical encoder parameters.
                 Dictionary<string, object> settings = new Dictionary<string, object>()

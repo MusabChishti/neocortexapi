@@ -28,13 +28,13 @@ namespace NeoCortex
         public static string BinarizeImage(string mnistImage, int imageSize, string testName)
         {
             string binaryImage;
-            //mnistImage = "E:\\Code-X\\Capture - Copy.PNG";   // input path of image
+            mnistImage = "E:\\Code-X\\Capture - Copy.PNG";   // input path of image
             
-          //  testName = "a";
+            //testName = "a";
 
 
             //binaryImage = $"{testName}.txt";
-          binaryImage = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; // output path
+            binaryImage = "E:\\Code-X\\abcs.txt"; // output path
 
             if (File.Exists(binaryImage))
                 File.Delete(binaryImage);
