@@ -328,8 +328,8 @@ namespace NeoCortexApiSample
 
         private static int[] BinarImage()
         {
-            //NeoCortexUtils.BinarizeImage("E:\\Code-X\\input.PNG", 130, "a"); ////
-            string file = "E:\\Code-X\\binary.txt"; //..++ for image binarizer
+            NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture - Copy.PNG", 130, "a");
+            string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
 
             // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
 
@@ -337,22 +337,25 @@ namespace NeoCortexApiSample
 
             StreamReader r = new StreamReader(file);
             n = r.ReadToEnd();
-            int[] binarized = new int[n.Length];
+            Console.WriteLine(n);
+            int[] binaryArray = new int[n.Length];
+
             for (int i = 0; i < n.Length; i++)
             {
-                // Parse each character to integer
                 if (int.TryParse(n[i].ToString(), out int digit))
                 {
-                    binarized[i] = digit;
+                    binaryArray[i] = digit;
                 }
                 else
                 {
                     // Handle parsing failure, if needed
-                    break;
+                    // For example, you might set a default value or log an error
+                    binaryArray[i] = -1; // Set a default value
+                                         // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
                 }
-
             }
-            return binarized;
+
+            return binaryArray;
         }
 
         private static void RunRustructuringExperimentImage(SpatialPooler sp1)
