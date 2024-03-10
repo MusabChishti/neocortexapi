@@ -99,7 +99,7 @@ namespace NeoCortexApiSample
                 int inputBits1 = 17160;
                 // This dictionary defines a set of typical encoder parameters.
                 Dictionary<string, object> settings = new Dictionary<string, object>()
-            {
+                {
                 { "W", 15},
                 { "N", inputBits1},
                 { "Radius", -1.0},
@@ -108,7 +108,11 @@ namespace NeoCortexApiSample
                 { "Name", "scalar"},
                 { "ClipInput", false},
                 { "MaxVal", 1.0}
+<<<<<<< HEAD
+                };
+=======
             };
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
 
                 HtmConfig cfg1 = new HtmConfig(new int[] { inputBits1 }, new int[] { numColumns })
                 {
@@ -271,9 +275,14 @@ namespace NeoCortexApiSample
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
-            Directory.Delete(outFolder, true);
-            Directory.CreateDirectory(outFolder);
 
+            if (Directory.Exists(outFolder)) // check directory for not being empty or not existing
+            {
+
+                Directory.Delete(outFolder, true);
+            }
+
+            Directory.CreateDirectory(outFolder);
 
             foreach (var input in inputValues)
             {

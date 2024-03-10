@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -25,6 +26,15 @@ namespace NeoCortex
         /// <param name="imageSize"></param>
         /// <param name="testName"></param>
         /// <returns></returns>
+<<<<<<< HEAD
+        public static string BinarizeImage(string mnistImage, string binaryImage, int imageSize,string testName)
+        {
+         
+            mnistImage = "E:\\Code-X\\input.PNG";  // input path of image
+
+            //testName = "a";
+            binaryImage = "E:\\Code-X\\binary.txt"; // output path
+=======
         public static string BinarizeImage(string mnistImage, string binaryImage, int imageSize,string testname)
         {
 
@@ -33,6 +43,7 @@ namespace NeoCortex
             //testName = "a";
 
             binaryImage = "E:\\Code-X\\neocortexapiabcs.txt"; // output path
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
 
             if (File.Exists(binaryImage))
             {
@@ -45,8 +56,13 @@ namespace NeoCortex
                 GreenThreshold = 200, 
                 BlueThreshold = 200, 
                 ImageWidth = imageSize, 
+<<<<<<< HEAD
+                ImageHeight = imageSize,
+                InputImagePath = mnistImage,
+=======
                 ImageHeight = imageSize, 
                 InputImagePath = mnistImage, 
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
                 OutputImagePath = binaryImage 
             });
 
@@ -89,13 +105,20 @@ namespace NeoCortex
                 throw new ArgumentException("Requested width/height must be greather than width/height inside of array.");
 
             }
+<<<<<<< HEAD
+=======
 
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
             var scale = width / w;
 
             if (scale * w < width)
             {
                 scale++;
             }
+<<<<<<< HEAD
+
+=======
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
             DrawBitmap(twoDimArray, scale, filePath, inactiveCellColor, activeCellColor, text);
 
         }
