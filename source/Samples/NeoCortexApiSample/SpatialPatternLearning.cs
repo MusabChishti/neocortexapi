@@ -40,7 +40,6 @@ namespace NeoCortexApiSample
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
 
-            //
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
             {
@@ -60,7 +59,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
             double max = 10;
-            Console.WriteLine("Integer or Image");
+            Console.WriteLine("Please choose Integer or Image : ");
 
             if (Console.ReadLine() == "Integer")
             {
@@ -68,7 +67,7 @@ namespace NeoCortexApiSample
                 //
                 // This dictionary defines a set of typical encoder parameters.
                 Dictionary<string, object> settings = new Dictionary<string, object>()
-            {
+                {
                 { "W", 15},
                 { "N", inputBits},
                 { "Radius", -1.0},
@@ -77,7 +76,7 @@ namespace NeoCortexApiSample
                 { "Name", "scalar"},
                 { "ClipInput", false},
                 { "MaxVal", max}
-            };
+                };
 
 
                 EncoderBase encoder = new ScalarEncoder(settings);
@@ -129,7 +128,6 @@ namespace NeoCortexApiSample
                     StimulusThreshold = 10,
                 };
 
-
                 EncoderBase encoder1 = new ScalarEncoder(settings);
 
                 //
@@ -138,13 +136,7 @@ namespace NeoCortexApiSample
                 var sp1 = RunExperiment(cfg1, encoder1, inputValues1);
                 RunRustructuringExperimentImage(sp1);
             }
-
-
-
-
         }
-
-
 
 
         /// <summary>
@@ -283,12 +275,9 @@ namespace NeoCortexApiSample
             Directory.CreateDirectory(outFolder);
 
 
-
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
-
-
 
                 int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
                 var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
@@ -320,8 +309,6 @@ namespace NeoCortexApiSample
                         thresholdvalues[key] = 0;
                         key++;
                     }
-
-
                 }
 
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
@@ -329,26 +316,20 @@ namespace NeoCortexApiSample
                 similarity = Math.Round(similarity, 2);
                 Console.WriteLine($"Similarity: {similarity}%");
 
-
                 var similaritystrng = similarity.ToString();
-
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
                 NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
-
             }
-
-
-
         }
 
         private static int[] BinarImage()
         {
-            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture.PNG", 130, "a");
-            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
+            //NeoCortexUtils.BinarizeImage("E:\\Code-X\\input.PNG", 130, "a"); ////
+            string file = "E:\\Code-X\\binary.txt"; //..++ for image binarizer
 
             // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
 
@@ -380,7 +361,6 @@ namespace NeoCortexApiSample
             string outFolder = nameof(RunRustructuringExperiment);
             Directory.Delete(outFolder, true);
             Directory.CreateDirectory(outFolder);
-
 
             var inpSdr = BinarImage();
             //int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
@@ -416,7 +396,6 @@ namespace NeoCortexApiSample
                     key++;
                 }
 
-
             }
 
             int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
@@ -435,12 +414,3 @@ namespace NeoCortexApiSample
 
     }
 }
-
-
-
-
-
-
-
-
-

@@ -274,7 +274,7 @@ namespace NeoCortexApiSample
                 {
                     maxMatchCnt++;
                     Debug.WriteLine($"100% accuracy reched {maxMatchCnt} times.");
-                    //
+                    
                     // Experiment is completed if we are 30 cycles long at the 100% accuracy.
                     if (maxMatchCnt >= 30)
                     {
