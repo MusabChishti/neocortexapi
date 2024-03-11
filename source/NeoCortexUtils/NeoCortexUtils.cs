@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -25,21 +26,29 @@ namespace NeoCortex
         /// <param name="imageSize"></param>
         /// <param name="testName"></param>
         /// <returns></returns>
-        public static string BinarizeImage(string mnistImage, int imageSize, string testName)
+        public static string BinarizeImage(string mnistImage, string binaryImage, int imageSize,string testName)
         {
-            string binaryImage;
-            //mnistImage = "E:\\Code-X\\Capture - Copy.PNG";   // input path of image
-            
-          //  testName = "a";
+         
+            mnistImage = "E:\\Code-X\\input.PNG";  // input path of image
 
-
-            //binaryImage = $"{testName}.txt";
-          binaryImage = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; // output path
+            //testName = "a";
+            binaryImage = "E:\\Code-X\\binary.txt"; // output path
 
             if (File.Exists(binaryImage))
+            {
                 File.Delete(binaryImage);
+            }
 
-            ImageBinarizer imageBinarizer = new ImageBinarizer(new BinarizerParams { RedThreshold = 200, GreenThreshold = 200, BlueThreshold = 200, ImageWidth = imageSize, ImageHeight = imageSize, InputImagePath = mnistImage, OutputImagePath = binaryImage });
+            ImageBinarizer imageBinarizer = new ImageBinarizer(new BinarizerParams 
+            { 
+                RedThreshold = 200, 
+                GreenThreshold = 200, 
+                BlueThreshold = 200, 
+                ImageWidth = imageSize, 
+                ImageHeight = imageSize,
+                InputImagePath = mnistImage,
+                OutputImagePath = binaryImage 
+            });
 
             imageBinarizer.Run();
 
@@ -76,12 +85,16 @@ namespace NeoCortex
             int h = twoDimArray.GetLength(1);
 
             if (w > width || h > height)
+            {
                 throw new ArgumentException("Requested width/height must be greather than width/height inside of array.");
 
+            }
             var scale = width / w;
 
             if (scale * w < width)
+            {
                 scale++;
+            }
 
             DrawBitmap(twoDimArray, scale, filePath, inactiveCellColor, activeCellColor, text);
 
@@ -168,7 +181,9 @@ namespace NeoCortex
             }
 
             if (widthOfAll > bmpWidth || heightOfAll > bmpHeight)
+            {
                 throw new ArgumentException("Size of all included arrays must be less than specified 'bmpWidth' and 'bmpHeight'");
+            }
 
             System.Drawing.Bitmap myBitmap = new System.Drawing.Bitmap(bmpWidth, bmpHeight);
             int k = 0;
@@ -271,7 +286,6 @@ namespace NeoCortex
 
             myBitmap.Save(filePath, ImageFormat.Png);
         }
-
 
         private static Color GetColor(decimal redStartVal, decimal yellowStartVal, decimal greenStartVal, decimal val)
         {

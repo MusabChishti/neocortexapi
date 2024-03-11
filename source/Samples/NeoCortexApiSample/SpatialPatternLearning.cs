@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace NeoCortexApiSample
@@ -39,7 +40,6 @@ namespace NeoCortexApiSample
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
 
-            //
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
             {
@@ -59,17 +59,15 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
             double max = 10;
-            Console.WriteLine("Integer or Image");
-            
-            if (Console.ReadLine() == "Integer" ) {
-                
+            Console.WriteLine("Please choose Integer or Image : ");
 
-
+            if (Console.ReadLine() == "Integer")
+            {
 
                 //
                 // This dictionary defines a set of typical encoder parameters.
                 Dictionary<string, object> settings = new Dictionary<string, object>()
-            {
+                {
                 { "W", 15},
                 { "N", inputBits},
                 { "Radius", -1.0},
@@ -78,7 +76,7 @@ namespace NeoCortexApiSample
                 { "Name", "scalar"},
                 { "ClipInput", false},
                 { "MaxVal", max}
-            };
+                };
 
 
                 EncoderBase encoder = new ScalarEncoder(settings);
@@ -101,7 +99,7 @@ namespace NeoCortexApiSample
                 int inputBits1 = 17160;
                 // This dictionary defines a set of typical encoder parameters.
                 Dictionary<string, object> settings = new Dictionary<string, object>()
-            {
+                {
                 { "W", 15},
                 { "N", inputBits1},
                 { "Radius", -1.0},
@@ -109,10 +107,10 @@ namespace NeoCortexApiSample
                 { "Periodic", false},
                 { "Name", "scalar"},
                 { "ClipInput", false},
-                { "MaxVal", max}
-            };
+                { "MaxVal", 1.0}
+                };
 
-                HtmConfig cfg1 = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
+                HtmConfig cfg1 = new HtmConfig(new int[] { inputBits1 }, new int[] { numColumns })
                 {
                     CellsPerColumn = 10,
                     MaxBoost = maxBoost,
@@ -130,7 +128,6 @@ namespace NeoCortexApiSample
                     StimulusThreshold = 10,
                 };
 
-
                 EncoderBase encoder1 = new ScalarEncoder(settings);
 
                 //
@@ -139,13 +136,7 @@ namespace NeoCortexApiSample
                 var sp1 = RunExperiment(cfg1, encoder1, inputValues1);
                 RunRustructuringExperimentImage(sp1);
             }
-
-
-
-           
         }
-       
-
 
 
         /// <summary>
@@ -280,16 +271,19 @@ namespace NeoCortexApiSample
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
-            Directory.Delete(outFolder, true);
-            Directory.CreateDirectory(outFolder);
 
+            if (Directory.Exists(outFolder)) // check directory for not being empty or not existing
+            {
+
+                Directory.Delete(outFolder, true);
+            }
+
+            Directory.CreateDirectory(outFolder);
 
 
             foreach (var input in inputValues)
             {
                 var inpSdr = encoder.Encode(input);
-
-
 
                 int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
                 var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
@@ -321,56 +315,27 @@ namespace NeoCortexApiSample
                         thresholdvalues[key] = 0;
                         key++;
                     }
-
-
                 }
 
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
+                similarity = Math.Round(similarity, 2);
                 Console.WriteLine($"Similarity: {similarity}%");
 
-
-<<<<<<< HEAD
-
-
-                // Calculate the similarity as the ratio of the intersection to the total number of unique elements
-
-
-
-
-
                 var similaritystrng = similarity.ToString();
-
-
-                
-
-=======
-                var similaritystrng = similarity.ToString();
-
->>>>>>> 4860bd77ff4cfb26e5e32f73b592e8469a0914fa
 
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
                 NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
 
-
             }
-<<<<<<< HEAD
-            
-
-               
-=======
->>>>>>> 4860bd77ff4cfb26e5e32f73b592e8469a0914fa
-
-
-
         }
 
         private static int[] BinarImage()
         {
-            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture.PNG", 130, "a");
-            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
+            //NeoCortexUtils.BinarizeImage("E:\\Code-X\\input.PNG", 130, "a"); ////
+            string file = "E:\\Code-X\\binary.txt"; //..++ for image binarizer
 
             // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
 
@@ -389,7 +354,7 @@ namespace NeoCortexApiSample
                 else
                 {
                     // Handle parsing failure, if needed
-                    Console.WriteLine($"Failed to parse character '{n[i]}' at index {i}");
+                    break;
                 }
 
             }
@@ -403,11 +368,10 @@ namespace NeoCortexApiSample
             Directory.Delete(outFolder, true);
             Directory.CreateDirectory(outFolder);
 
-
             var inpSdr = BinarImage();
-            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
+            //int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
 
-            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
+            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr, (int)Math.Sqrt(inpSdr.Length), (int)Math.Sqrt(inpSdr.Length));
             var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
             NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: null);
@@ -419,11 +383,11 @@ namespace NeoCortexApiSample
             //Collecting the permancences value and applying threshold and analyzing it
 
             Dictionary<int, double>.ValueCollection values = probabilities.Values;
-            int[] thresholdvalues = new int[inpSdr1.Length];
+            int[] thresholdvalues = new int[inpSdr.Length];
 
             int key = 0; //List index
 
-            var thresholds = 4;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            var thresholds = 10;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
 
             foreach (var val in values)
             {
@@ -438,11 +402,11 @@ namespace NeoCortexApiSample
                     key++;
                 }
 
-
             }
 
             int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
             var similarity = (double)matchingCount / inpSdr.Length * 100;
+            similarity = Math.Round(similarity, 2);
             Console.WriteLine($"Similarity: {similarity}%");
 
             var similaritystrng = similarity.ToString();
@@ -454,45 +418,5 @@ namespace NeoCortexApiSample
 
         }
 
-<<<<<<< HEAD
-            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
-
-            string n = "";
-
-            StreamReader r = new StreamReader(file);
-            n = r.ReadToEnd();
-            int[] binarized = new int[n.Length];
-            for (int i = 0; i < n.Length; i++)
-            {
-                // Parse each character to integer
-                if (int.TryParse(n[i].ToString(), out int digit))
-                {
-                    binarized[i] = digit;
-                }
-                else
-                {
-                    // Handle parsing failure, if needed
-                    Console.WriteLine($"Failed to parse character '{n[i]}' at index {i}");
-                }
-
-            }
-            return binarized;
-        }
-
-
-
-        }
-    
-=======
->>>>>>> 4860bd77ff4cfb26e5e32f73b592e8469a0914fa
     }
 }
-
-
-
-
-
-
-
-
-
