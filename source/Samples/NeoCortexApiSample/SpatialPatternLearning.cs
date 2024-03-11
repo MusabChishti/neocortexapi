@@ -108,7 +108,11 @@ namespace NeoCortexApiSample
                 { "Name", "scalar"},
                 { "ClipInput", false},
                 { "MaxVal", 1.0}
+<<<<<<< HEAD
                 };
+=======
+            };
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
 
                 HtmConfig cfg1 = new HtmConfig(new int[] { inputBits1 }, new int[] { numColumns })
                 {
@@ -279,7 +283,6 @@ namespace NeoCortexApiSample
             }
 
             Directory.CreateDirectory(outFolder);
-
 
             foreach (var input in inputValues)
             {

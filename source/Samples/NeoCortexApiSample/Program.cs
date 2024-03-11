@@ -24,18 +24,26 @@ namespace NeoCortexApiSample
        
         static void Main(string[] args)
         {
-            //NeoCortexUtils a = new NeoCortexUtils();
+            NeoCortexUtils a = new NeoCortexUtils();
 
+<<<<<<< HEAD
             //NeoCortexUtils.BinarizeImage("E:\\Code-X\\input.PNG", 130, "a");   
+=======
+            //NeoCortexUtils.BinarizeImage("E:\\Code-X\\input.PNG", 130, "a");  // Adeleh workin on binarized image 
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
 
             //Starts experiment that demonstrates how to learn spatial patterns.
             SpatialPatternLearning experiment = new SpatialPatternLearning();
             experiment.Run();
             
+<<<<<<< HEAD
             // int[] ints = BinarImage();
 
 
             //
+=======
+            //int[] ints = BinarImage();
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
             //Starts experiment that demonstrates how to learn spatial patterns.
             //SequenceLearning experiment = new SequenceLearning();
             //experiment.Run();
@@ -45,10 +53,15 @@ namespace NeoCortexApiSample
 
             // RunMultiSimpleSequenceLearningExperiment();
 
+<<<<<<< HEAD
             //RunMultiSequenceLearningExperiment();
         }
 
 
+=======
+        }
+       
+>>>>>>> a80317bfe487d7b65005a032046ae5cdd89df039
         private static void RunMultiSimpleSequenceLearningExperiment()
         {
             Dictionary<string, List<double>> sequences = new Dictionary<string, List<double>>();
