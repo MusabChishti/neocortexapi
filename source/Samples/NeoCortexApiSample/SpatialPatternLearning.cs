@@ -108,7 +108,7 @@ namespace NeoCortexApiSample
                 { "Periodic", false},
                 { "Name", "scalar"},
                 { "ClipInput", false},
-                { "MaxVal", 1.0}
+                { "MaxVal", 10.0}
             };
 
                 HtmConfig cfg1 = new HtmConfig(new int[] { inputBits1 }, new int[] { numColumns })
