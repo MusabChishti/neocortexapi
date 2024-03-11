@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -25,24 +26,32 @@ namespace NeoCortex
         /// <param name="imageSize"></param>
         /// <param name="testName"></param>
         /// <returns></returns>
-        public static string BinarizeImage(string mnistImage, int imageSize,string testname)
+
+        public static string BinarizeImage(string mnistImage, string binaryImage, int imageSize,string testname)
         {
-            string binaryImage;
+
             mnistImage = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture.PNG";   // input path of image
             
-            //testName = "a";
+           
 
+            binaryImage = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; // output path
 
-            //binaryImage = $"{testName}.txt";
-            binaryImage = "C:\\Users\\nithi\\My Files\\Project\\neocortexapiabcs.txt"; // output path
 
             if (File.Exists(binaryImage))
             {
                 File.Delete(binaryImage);
-
             }
 
-            ImageBinarizer imageBinarizer = new ImageBinarizer(new BinarizerParams { RedThreshold = 200, GreenThreshold = 200, BlueThreshold = 200, ImageWidth = imageSize, ImageHeight = imageSize, InputImagePath = mnistImage, OutputImagePath = binaryImage });
+            ImageBinarizer imageBinarizer = new ImageBinarizer(new BinarizerParams 
+            { 
+                RedThreshold = 200, 
+                GreenThreshold = 200, 
+                BlueThreshold = 200, 
+                ImageWidth = imageSize, 
+                ImageHeight = imageSize,
+                InputImagePath = mnistImage,
+                OutputImagePath = binaryImage 
+            });
 
             imageBinarizer.Run();
 
@@ -90,6 +99,7 @@ namespace NeoCortex
             {
                 scale++;
             }
+
             DrawBitmap(twoDimArray, scale, filePath, inactiveCellColor, activeCellColor, text);
 
         }
@@ -280,7 +290,6 @@ namespace NeoCortex
 
             myBitmap.Save(filePath, ImageFormat.Png);
         }
-
 
         private static Color GetColor(decimal redStartVal, decimal yellowStartVal, decimal greenStartVal, decimal val)
         {

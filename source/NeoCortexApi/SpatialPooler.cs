@@ -264,7 +264,8 @@ namespace NeoCortexApi
             if (inputVector.Length != this.connections.HtmConfig.NumInputs)
             {
                 throw new ArgumentException(
-                        "Input array must be same size as the defined number of inputs: From Params: " + this.connections.HtmConfig.NumInputs +
+                        "Input array must be same size as the defined number of inputs: From Params: " 
+                        + this.connections.HtmConfig.NumInputs +
                         ", From Input Vector: " + inputVector.Length);
             }
 
