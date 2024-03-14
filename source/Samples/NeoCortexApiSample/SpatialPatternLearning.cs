@@ -60,6 +60,7 @@ namespace NeoCortexApiSample
             };
             double max = 10;
             Console.WriteLine("Please choose Integer or Image : ");
+            
 
             if (Console.ReadLine() == "Integer")
             {
@@ -94,7 +95,7 @@ namespace NeoCortexApiSample
 
                 RunRustructuringExperiment(sp, encoder, inputValues);
             }
-            else
+            else if (Console.ReadLine() == "Image")
             {
                 int inputBits1 = 17160;
                 // This dictionary defines a set of typical encoder parameters.
@@ -136,6 +137,10 @@ namespace NeoCortexApiSample
                 List<double> inputValues1 = new List<double>();
                 var sp1 = RunExperiment(cfg1, encoder1, inputValues1);
                 RunRustructuringExperimentImage(sp1);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input");
             }
         }
 
