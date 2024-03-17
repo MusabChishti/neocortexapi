@@ -62,7 +62,7 @@ namespace NeoCortexApiSample
             Console.WriteLine("Please choose Integer or Image : ");
             var x = Console.ReadLine(); // for the user to give the type of input
 
-
+            // If condition to check whether the input is integer or image 
 
             if ( x == "Integer")
             {
