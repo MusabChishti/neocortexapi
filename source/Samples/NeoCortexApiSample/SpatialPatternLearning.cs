@@ -339,9 +339,11 @@ namespace NeoCortexApiSample
             }
         }
 
-        
+        private static int[] BinarImage()
+        {
+            NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture.PNG", "", 130, "");
 
-        private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+            private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
