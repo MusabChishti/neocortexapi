@@ -342,6 +342,9 @@ namespace NeoCortexApiSample
         private static int[] BinarImage()
         {
             NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture.PNG", "", 130, "");
+            string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+
+            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
 
             private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
