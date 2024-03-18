@@ -332,37 +332,7 @@ namespace NeoCortexApiSample
             }
         }
 
-        private static int[] BinarImage()
-        {
-            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Capture.PNG", "", 130, "");
-            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
-
-            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
-
-            string n = "";
-
-            StreamReader r = new StreamReader(file);
-            n = r.ReadToEnd();
-            Console.WriteLine(n);
-            int[] binaryArray = new int[n.Length];
-
-            for (int i = 0; i < n.Length; i++)
-            {
-                if (int.TryParse(n[i].ToString(), out int digit))
-                {
-                    binaryArray[i] = digit;
-                }
-                else
-                {
-                    // Handle parsing failure, if needed
-                    // For example, you might set a default value or log an error
-                    binaryArray[i] = -1; // Set a default value
-                                         // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
-                }
-            }
-
-            return binaryArray;
-        }
+        
 
         private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
