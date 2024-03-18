@@ -59,9 +59,12 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
             double max = 10;
-            Console.WriteLine("Please choose Integer or Image : ");
+            Console.WriteLine("Please enter 1 for Integer,2 for Image : ");
+            var x = Console.ReadLine(); // for the user to give the type of input
 
-            if (Console.ReadLine() == "Integer")
+            // If condition to check whether the input is integer or image 
+
+            if ( x == "1")
             {
 
                 //
@@ -94,7 +97,7 @@ namespace NeoCortexApiSample
 
                 RunRustructuringExperiment(sp, encoder, inputValues);
             }
-            else
+            else if (x == "2")
             {
                 int inputBits1 = 17160;
                 // This dictionary defines a set of typical encoder parameters.
@@ -136,6 +139,10 @@ namespace NeoCortexApiSample
                 List<double> inputValues1 = new List<double>();
                 var sp1 = RunExperiment(cfg1, encoder1, inputValues1);
                 RunRustructuringExperimentImage(sp1);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input");
             }
         }
 
@@ -327,7 +334,7 @@ namespace NeoCortexApiSample
                 int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
-                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
 
             }
         }
@@ -387,7 +394,7 @@ namespace NeoCortexApiSample
             int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
             var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
-            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: similaritystrng);
+            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
 
         }
 
