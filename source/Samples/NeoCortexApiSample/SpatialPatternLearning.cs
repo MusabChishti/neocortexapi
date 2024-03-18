@@ -345,6 +345,10 @@ namespace NeoCortexApiSample
             string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
 
             // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+            string n = "";
+
+            StreamReader r = new StreamReader(file);
+            n = r.ReadToEnd();
 
             private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
