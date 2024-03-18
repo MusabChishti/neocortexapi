@@ -351,8 +351,14 @@ namespace NeoCortexApiSample
             n = r.ReadToEnd();
             Console.WriteLine(n);
             int[] binaryArray = new int[n.Length];
+            for (int i = 0; i < n.Length; i++)
+            {
+                if (int.TryParse(n[i].ToString(), out int digit))
+                {
+                    binaryArray[i] = digit;
+                }
 
-            private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+                private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
