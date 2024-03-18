@@ -349,6 +349,8 @@ namespace NeoCortexApiSample
 
             StreamReader r = new StreamReader(file);
             n = r.ReadToEnd();
+            Console.WriteLine(n);
+            int[] binaryArray = new int[n.Length];
 
             private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
