@@ -374,6 +374,8 @@ namespace NeoCortexApiSample
             string outFolder = nameof(RunRustructuringExperiment);
             Directory.Delete(outFolder, true);
             Directory.CreateDirectory(outFolder);
+            var inpSdr = BinarImage();
+            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
 
 
         }
