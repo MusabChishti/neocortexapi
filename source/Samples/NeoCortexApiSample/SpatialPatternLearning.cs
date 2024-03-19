@@ -371,6 +371,10 @@ namespace NeoCortexApiSample
         private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
+            string outFolder = nameof(RunRustructuringExperiment);
+            Directory.Delete(outFolder, true);
+            Directory.CreateDirectory(outFolder);
+
 
         }
     }
