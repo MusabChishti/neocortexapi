@@ -404,6 +404,13 @@ namespace NeoCortexApiSample
                 }
 
             }
+            int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+            var similarity = (double)matchingCount / inpSdr.Length * 100;
+            similarity = Math.Round(similarity, 2);
+            Console.WriteLine($"Similarity: {similarity}%");
+
+            var similaritystrng = similarity.ToString();
+
 
 
 
@@ -413,4 +420,4 @@ namespace NeoCortexApiSample
 
 
         }
-        }
+    }
