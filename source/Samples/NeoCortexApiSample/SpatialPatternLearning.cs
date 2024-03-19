@@ -397,13 +397,20 @@ namespace NeoCortexApiSample
                     thresholdvalues[key] = 1;
                     key++;
                 }
-
-
-
-
-
-
-
+                else
+                {
+                    thresholdvalues[key] = 0;
+                    key++;
+                }
 
             }
+
+
+
+
+
+
+
+
+        }
         }
