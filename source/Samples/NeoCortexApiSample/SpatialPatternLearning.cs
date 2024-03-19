@@ -384,6 +384,11 @@ namespace NeoCortexApiSample
             var probabilities = sp1.Reconstruct(actCols);
 
             //Collecting the permancences value and applying threshold and analyzing it
+            Dictionary<int, double>.ValueCollection values = probabilities.Values;
+            int[] thresholdvalues = new int[inpSdr1.Length];
+
+            int key = 0; //List index
+
 
 
 
