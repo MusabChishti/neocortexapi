@@ -357,8 +357,12 @@ namespace NeoCortexApiSample
                 {
                     binaryArray[i] = digit;
                 }
+                else
+                {
+                    // Handle parsing failure, if needed
+                    // For example, you might set a default value or log an error 
 
-                private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+                    private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
