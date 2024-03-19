@@ -412,14 +412,17 @@ namespace NeoCortexApiSample
             var similaritystrng = similarity.ToString();
             int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
             var twoDArray = ArrayUtils.Transpose(twoDiArray);
-
-
-
-
-
-
-
-
+            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
 
         }
+
+
+
+
+
+
+
+
+
+    }
     }
