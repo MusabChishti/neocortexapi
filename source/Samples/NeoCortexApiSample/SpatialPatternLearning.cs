@@ -388,6 +388,15 @@ namespace NeoCortexApiSample
             int[] thresholdvalues = new int[inpSdr1.Length];
 
             int key = 0; //List index
+            var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+
+            foreach (var val in values)
+            {
+                if (val > thresholds)
+                {
+                    thresholdvalues[key] = 1;
+                    key++;
+                }
 
 
 
@@ -395,5 +404,6 @@ namespace NeoCortexApiSample
 
 
 
+
+            }
         }
-    }
