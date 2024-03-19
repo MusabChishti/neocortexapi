@@ -365,8 +365,10 @@ namespace NeoCortexApiSample
                                          // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
                 }
             }
+            return binaryArray;
+        }
 
-            private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+        private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
