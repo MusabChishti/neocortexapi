@@ -368,7 +368,9 @@ namespace NeoCortexApiSample
             return binaryArray;
         }
 
-        
+        private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+        {
+            //Create a directory to save the bitmap output.
 
+        }
     }
-}
