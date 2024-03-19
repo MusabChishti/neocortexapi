@@ -410,6 +410,8 @@ namespace NeoCortexApiSample
             Console.WriteLine($"Similarity: {similarity}%");
 
             var similaritystrng = similarity.ToString();
+            int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
+            var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
 
 
