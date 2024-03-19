@@ -360,9 +360,13 @@ namespace NeoCortexApiSample
                 else
                 {
                     // Handle parsing failure, if needed
-                    // For example, you might set a default value or log an error 
+                    // For example, you might set a default value or log an error
+                    binaryArray[i] = -1; // Set a default value
+                                         // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
+                }
+            }
 
-                    private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+            private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
