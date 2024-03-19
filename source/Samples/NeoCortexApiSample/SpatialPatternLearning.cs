@@ -368,62 +368,7 @@ namespace NeoCortexApiSample
             return binaryArray;
         }
 
-        private static void RunRustructuringExperimentImage(SpatialPooler sp1)
-        {
-            //Create a directory to save the bitmap output.
-            string outFolder = nameof(RunRustructuringExperiment);
-            Directory.Delete(outFolder, true);
-            Directory.CreateDirectory(outFolder);
-
-            var inpSdr = BinarImage();
-            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
-
-            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
-            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
-
-            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: null);
-
-            var actCols = sp1.Compute(inpSdr1, false);
-
-            var probabilities = sp1.Reconstruct(actCols);
-
-            //Collecting the permancences value and applying threshold and analyzing it
-
-            Dictionary<int, double>.ValueCollection values = probabilities.Values;
-            int[] thresholdvalues = new int[inpSdr1.Length];
-
-            int key = 0; //List index
-
-            var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
-
-            foreach (var val in values)
-            {
-                if (val > thresholds)
-                {
-                    thresholdvalues[key] = 1;
-                    key++;
-                }
-                else
-                {
-                    thresholdvalues[key] = 0;
-                    key++;
-                }
-
-            }
-
-            int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
-            var similarity = (double)matchingCount / inpSdr.Length * 100;
-            similarity = Math.Round(similarity, 2);
-            Console.WriteLine($"Similarity: {similarity}%");
-
-            var similaritystrng = similarity.ToString();
-
-            int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
-            var twoDArray = ArrayUtils.Transpose(twoDiArray);
-
-            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
-
-        }
+        
 
     }
 }
