@@ -376,6 +376,9 @@ namespace NeoCortexApiSample
             Directory.CreateDirectory(outFolder);
             var inpSdr = BinarImage();
             int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
+            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
+            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
+
 
 
         }
