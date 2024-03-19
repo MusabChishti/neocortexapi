@@ -379,6 +379,13 @@ namespace NeoCortexApiSample
             int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
             var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
             NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: null);
+            var actCols = sp1.Compute(inpSdr1, false);
+
+            var probabilities = sp1.Reconstruct(actCols);
+
+            //Collecting the permancences value and applying threshold and analyzing it
+
+
 
 
 
