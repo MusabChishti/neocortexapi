@@ -278,7 +278,7 @@ namespace NeoCortexApiSample
         private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
             //Create a directory to save the bitmap output.
-            string outFolder = nameof(RunRustructuringExperiment);
+            
 
 
             private static int[] BinarImage()
