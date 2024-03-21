@@ -97,7 +97,7 @@ namespace NeoCortexApiSample
 
                 RunRustructuringExperiment(sp, encoder, inputValues);
             }
-            else if (x == "2")
+            else if (x == "2")  
             {
                 int inputBits1 = 17160;
                 // This dictionary defines a set of typical encoder parameters.
@@ -352,62 +352,91 @@ namespace NeoCortexApiSample
         }
 
 
-
+        /// <summary>
+        /// Binarizes an image and returns the binary data as an integer array.
+        /// </summary>
+        /// <returns>An array of integers representing binary data.</returns>
         private static int[] BinarImage()
         {
-            NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture.PNG", "", 130, "");
-            string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+            // Binarize the image (Assuming this function works correctly)
+            NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture.PNG", "D:\\Code-X\\abcs.txt", 130, "");
 
-            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
-            string n = "";
+            // Path to the text file containing binary data
+            string file = "D:\\Code-X\\abcs.txt";
 
+            // Read the content of the text file
+            string n = ""; // String to store binary data read from the file
+
+            // Open the text file and read its content
             StreamReader r = new StreamReader(file);
             n = r.ReadToEnd();
+
+            // Display the content of the text file (for debugging purposes)
             Console.WriteLine(n);
+
+            // Initialize an array to store binary data
             int[] binaryArray = new int[n.Length];
+
+            // Convert each character of the binary string to an integer
             for (int i = 0; i < n.Length; i++)
             {
+                // Try parsing the character to an integer
                 if (int.TryParse(n[i].ToString(), out int digit))
                 {
+                    // Store the parsed integer in the array
                     binaryArray[i] = digit;
                 }
                 else
                 {
-                    // Handle parsing failure, if needed
-                    // For example, you might set a default value or log an error
+                    // Handle parsing failure (if needed)
+                    // For example, set a default value or log an error
                     binaryArray[i] = -1; // Set a default value
-                                         // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
+                                         // Log error message
+                    //Console.WriteLine($"Error parsing character at position {i}. Default value (-1) used.");
                 }
             }
+
+            // Return the binary data as an integer array
             return binaryArray;
         }
 
         /// <summary>
-        /// 
+        /// This method runs an experiment on restructuring images using a spatial pooler.
+        /// It takes an instance of the SpatialPooler class as input.
         /// </summary>
-        /// <param name="sp1"> </param>
+        /// <param name="sp1">The SpatialPooler instance to use for the experiment.</param>
         private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
-            //Create a directory to save the bitmap output.
+            // Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
-            Directory.Delete(outFolder, true);
-            Directory.CreateDirectory(outFolder);
+            Directory.Delete(outFolder, true); // Delete existing directory if exists
+            Directory.CreateDirectory(outFolder); // Create new directory
+
+            // Generate binary array from input image
             var inpSdr = BinarImage();
+            // Invert binary array (1s to 0s, and vice versa)
             int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
+            // Create a 2D array from the binary array
             int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
+            // Transpose the 2D array
             var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
+            // Draw bitmap of the input image
             NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: null);
+
+            // Compute active columns in the spatial pooler based on the input binary array
             var actCols = sp1.Compute(inpSdr1, false);
 
+            // Reconstruct probabilities from the active columns
             var probabilities = sp1.Reconstruct(actCols);
 
-            //Collecting the permancences value and applying threshold and analyzing it
+            // Collect permancences values, apply threshold, and analyze
             Dictionary<int, double>.ValueCollection values = probabilities.Values;
             int[] thresholdvalues = new int[inpSdr1.Length];
 
-            int key = 0; //List index
-            var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            int key = 0; // List index
+            var thresholds = 2; // Threshold value to segregate values between 0 and 1 and to change the threshold value
 
+            // Apply threshold to probabilities
             foreach (var val in values)
             {
                 if (val > thresholds)
@@ -420,27 +449,35 @@ namespace NeoCortexApiSample
                     thresholdvalues[key] = 0;
                     key++;
                 }
-
             }
+
+            // Calculate similarity between original and thresholded arrays
             int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
             var similarity = (double)matchingCount / inpSdr.Length * 100;
             similarity = Math.Round(similarity, 2);
             Console.WriteLine($"Similarity: {similarity}%");
 
+            // Convert similarity to string for file name
             var similaritystrng = similarity.ToString();
+            // Create a 2D array from the thresholded values
             int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
+            // Transpose the 2D array
             var twoDArray = ArrayUtils.Transpose(twoDiArray);
+            // Draw bitmap of the output image
             NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
-
         }
 
-
-
-
-
-
-
-
-
     }
-    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
