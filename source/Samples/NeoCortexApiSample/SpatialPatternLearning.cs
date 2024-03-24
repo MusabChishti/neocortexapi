@@ -359,10 +359,10 @@ namespace NeoCortexApiSample
         private static int[] BinarImage()
         {
             // Binarize the image (Assuming this function works correctly)
-            NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture.PNG", "D:\\Code-X\\abcs.txt", 130, "");
+            NeoCortexUtils.BinarizeImage("D:\\Code-X\\neocortexapi\\Image0.PNG", "D:\\Code-X\\neocortexapi\\Output.txt", 130, "");
 
             // Path to the text file containing binary data
-            string file = "D:\\Code-X\\abcs.txt";
+            string file = "D:\\Code-X\\neocortexapi\\Output.txt";
 
             // Read the content of the text file
             string n = ""; // String to store binary data read from the file
