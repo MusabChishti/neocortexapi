@@ -64,7 +64,7 @@ namespace NeoCortexApiSample
 
             // If condition to check whether the input is integer or image 
 
-            if ( x == "1")
+            if (x == "1")
             {
 
                 //
@@ -482,4 +482,4 @@ namespace NeoCortexApiSample
 
 
     }
-    }
+}

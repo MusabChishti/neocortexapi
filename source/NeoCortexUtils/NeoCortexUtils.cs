@@ -30,7 +30,15 @@ namespace NeoCortex
         public static string BinarizeImage(string mnistImage, string binaryImage, int imageSize,string testname)
         {
             testname = "a";
+<<<<<<< HEAD
             
+=======
+           // mnistImage = "D:\\Code-X\\Capture.PNG";   // input path of image
+            
+           
+
+           // binaryImage = "D:\\Code-X\\abcs.txt"; // output path
+>>>>>>> 66cb14f6cec3be3df9fdea9b7351f5486b69d596
 
 
             if (File.Exists(binaryImage))
