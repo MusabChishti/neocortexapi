@@ -58,7 +58,7 @@ namespace NeoCortexApiSample
                 Random = new ThreadSafeRandom(42),
                 StimulusThreshold = 10,
             };
-            double max = 100;
+            double max = 10;
             Console.WriteLine("Please enter 1 for Integer,2 for Image : ");
             var x = Console.ReadLine(); // for the user to give the type of input
 
@@ -305,10 +305,30 @@ namespace NeoCortexApiSample
                 // Reconstruct probabilities from the active columns.
                 var probabilities = sp.Reconstruct(actCols);
 
+                Dictionary<int, double> normalizedData = new Dictionary<int, double>();
+
+                // Find min and max values
+                double minValue = double.MaxValue;
+                double maxValue = double.MinValue;
+                foreach (var value in probabilities.Values)
+                {
+                    if (value < minValue)
+                        minValue = value;
+                    if (value > maxValue)
+                        maxValue = value;
+                }
+
+                // Normalize data
+                foreach (var kvp in probabilities)
+                {
+                    double normalizedValue = (kvp.Value - minValue) / (maxValue - minValue);
+                    normalizedData.Add(kvp.Key, normalizedValue);
+                }
+
                 // Collecting the permancences value and applying threshold and analyzing it
 
                 // Extract the values from the dictionary.
-                Dictionary<int, double>.ValueCollection values = probabilities.Values;
+                Dictionary<int, double>.ValueCollection values = normalizedData.Values;
 
                 // Initialize an array to store thresholded values.
                 int[] thresholdvalues = new int[inpSdr.Length];
@@ -317,7 +337,7 @@ namespace NeoCortexApiSample
                 int key = 0;
 
                 // Set the threshold value.
-                var thresholds = 2;
+                var thresholds = 0.7;
 
                 // Loop through the values and apply thresholding.
                 foreach (var val in values)
@@ -355,8 +375,8 @@ namespace NeoCortexApiSample
 
         private static int[] BinarImage()
         {
-            NeoCortexUtils.BinarizeImage("D:\\Code-X\\Capture.PNG", "", 130, "");
-            string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Black_square.JPG", "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt", 130, "");
+            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
 
             // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
             string n = "";
@@ -400,13 +420,32 @@ namespace NeoCortexApiSample
             var actCols = sp1.Compute(inpSdr1, false);
 
             var probabilities = sp1.Reconstruct(actCols);
+            Dictionary<int, double> normalizedData = new Dictionary<int, double>();
+
+            // Find min and max values
+            double minValue = double.MaxValue;
+            double maxValue = double.MinValue;
+            foreach (var value in probabilities.Values)
+            {
+                if (value < minValue)
+                    minValue = value;
+                if (value > maxValue)
+                    maxValue = value;
+            }
+
+            // Normalize data
+            foreach (var kvp in probabilities)
+            {
+                double normalizedValue = (kvp.Value - minValue) / (maxValue - minValue);
+                normalizedData.Add(kvp.Key, normalizedValue);
+            }
 
             //Collecting the permancences value and applying threshold and analyzing it
-            Dictionary<int, double>.ValueCollection values = probabilities.Values;
+            Dictionary<int, double>.ValueCollection values = normalizedData.Values;
             int[] thresholdvalues = new int[inpSdr1.Length];
 
             int key = 0; //List index
-            var thresholds = 2;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            var thresholds = 0.4;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
 
             foreach (var val in values)
             {
@@ -422,7 +461,7 @@ namespace NeoCortexApiSample
                 }
 
             }
-            int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+            int matchingCount = inpSdr1.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
             var similarity = (double)matchingCount / inpSdr.Length * 100;
             similarity = Math.Round(similarity, 2);
             Console.WriteLine($"Similarity: {similarity}%");
