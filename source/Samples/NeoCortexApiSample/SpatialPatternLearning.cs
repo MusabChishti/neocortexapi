@@ -297,13 +297,14 @@ namespace NeoCortexApiSample
                 var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
 
                 // Draw a bitmap image of the encoded input and save it.
-                NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{input}.png", Color.Gray, Color.Green, text: null);
+                NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\{input}.png", Color.Gray, Color.Green, text: $"Input image of integer {input} before reconstruction");
 
                 // Compute active columns using the spatial pooler.
                 var actCols = sp.Compute(inpSdr, false);
 
                 // Reconstruct probabilities from the active columns.
                 var probabilities = sp.Reconstruct(actCols);
+                Debug.WriteLine(probabilities.Values);
 
                 Dictionary<int, double> normalizedData = new Dictionary<int, double>();
 
@@ -337,7 +338,7 @@ namespace NeoCortexApiSample
                 int key = 0;
 
                 // Set the threshold value.
-                var thresholds = 0.7;
+                var thresholds = 0.85;
 
                 // Loop through the values and apply thresholding.
                 foreach (var val in values)
@@ -357,7 +358,7 @@ namespace NeoCortexApiSample
                 int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
                 var similarity = (double)matchingCount / inpSdr.Length * 100;
                 similarity = Math.Round(similarity, 2);
-                Console.WriteLine($"Similarity: {similarity}%");
+                Debug.WriteLine($"Similarity of integer {input}: {similarity}%");
 
                 // Convert similarity to string for file naming.
                 var similaritystrng = similarity.ToString();
@@ -367,7 +368,7 @@ namespace NeoCortexApiSample
                 var twoDArray = ArrayUtils.Transpose(twoDiArray);
 
                 // Draw a bitmap image of the thresholded values, including similarity percentage, and save it.
-                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: $"Reconstructed Image of integer {input} with Similarity = {similaritystrng}%");
             }
         }
 
@@ -375,8 +376,8 @@ namespace NeoCortexApiSample
 
         private static int[] BinarImage()
         {
-            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Black_square.JPG", "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt", 130, "");
-            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
+            NeoCortexUtils.BinarizeImage("D:\\Code-X\\neocortexapi\\Black_square.JPG", "D:\\Code-X\\neocortexapi\\abcs.txt", 130, "");
+            string file = "D:\\Code-X\\neocortexapi\\abcs.txt"; //..++ for image binarizer
 
             // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
             string n = "";
@@ -395,7 +396,7 @@ namespace NeoCortexApiSample
                 {
                     // Handle parsing failure, if needed
                     // For example, you might set a default value or log an error
-                    binaryArray[i] = -1; // Set a default value
+                    binaryArray[i] = 0; // Set a default value
                                          // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
                 }
             }
@@ -416,7 +417,7 @@ namespace NeoCortexApiSample
             int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
             int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
             var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
-            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: null);
+            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: $"Binarized input image before reconstruction");
             var actCols = sp1.Compute(inpSdr1, false);
 
             var probabilities = sp1.Reconstruct(actCols);
@@ -469,7 +470,7 @@ namespace NeoCortexApiSample
             var similaritystrng = similarity.ToString();
             int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
             var twoDArray = ArrayUtils.Transpose(twoDiArray);
-            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
+            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Reconstructed Image with Similarity = {similaritystrng}%");
 
         }
 
