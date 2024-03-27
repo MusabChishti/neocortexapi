@@ -61,7 +61,6 @@ namespace UnitTestsProject
             }
         }
 
-
         internal static HtmConfig GetHtmConfig(int inpBits, int columns)
         {
             var htmConfig = new HtmConfig(new int[] { inpBits }, new int[] { columns })
@@ -159,7 +158,6 @@ namespace UnitTestsProject
             return cells.ToArray();
         }
     }
-
 
     public enum PoolerMode
     {

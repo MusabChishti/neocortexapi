@@ -20,30 +20,16 @@ namespace NeoCortexApiSample
         /// </summary>
         /// <param name="args"></param>
         /// 
-
        
         static void Main(string[] args)
         {
             NeoCortexUtils a = new NeoCortexUtils();
 
-
-
             //Starts experiment that demonstrates how to learn spatial patterns.
             SpatialPatternLearning experiment = new SpatialPatternLearning();
             experiment.Run();
-            
-
-          
-
-            
-
-            //GridCellSamples gridCells = new GridCellSamples();
-            //gridCells.Run();
-
-            // RunMultiSimpleSequenceLearningExperiment();
 
         }
-       
 
         private static void RunMultiSimpleSequenceLearningExperiment()
         {
@@ -97,7 +83,6 @@ namespace NeoCortexApiSample
             predictor.Reset();
             PredictNextElement(predictor, list3);
         }
-
 
         private static void PredictNextElement(Predictor predictor, double[] list)
         {
