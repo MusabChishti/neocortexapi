@@ -30,16 +30,9 @@ namespace NeoCortex
         public static string BinarizeImage(string mnistImage, string binaryImage, int imageSize,string testname)
         {
             testname = "a";
-<<<<<<< HEAD
-            
-=======
+
            // mnistImage = "D:\\Code-X\\Capture.PNG";   // input path of image
-            
-           
-
            // binaryImage = "D:\\Code-X\\abcs.txt"; // output path
->>>>>>> 66cb14f6cec3be3df9fdea9b7351f5486b69d596
-
 
             if (File.Exists(binaryImage))
             {
@@ -61,7 +54,6 @@ namespace NeoCortex
 
             return binaryImage;
         }
-
 
         /// <summary>
         /// Draws the bitmap from array of active columns.
@@ -284,7 +276,9 @@ namespace NeoCortex
                         {
                             for (int padY = 0; padY < scale; padY++)
                             {
-                                myBitmap.SetPixel(n * (bmpWidth / twoDimArrays.Count) + Xcount * scale + padX, Ycount * scale + padY, GetColor(redStart, yellowMiddle, greenStart, (Decimal)arr[Xcount, Ycount]));
+                                myBitmap.SetPixel(n * (bmpWidth / twoDimArrays.Count) + Xcount * scale + padX, Ycount * scale + padY,
+                                    GetColor(redStart, yellowMiddle, greenStart, 
+                                    (Decimal)arr[Xcount, Ycount]));
                                 k++;
                             }
                         }
@@ -582,7 +576,6 @@ namespace NeoCortex
             return res;
         }
 
-
         /// <summary>
         /// Calculates the softmax function.
         /// </summary>
@@ -597,7 +590,6 @@ namespace NeoCortex
 
             return res;
         }
-
 
         /// <summary>
         /// Calculates the softmax of the input array.

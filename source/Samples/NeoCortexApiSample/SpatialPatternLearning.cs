@@ -113,7 +113,6 @@ namespace NeoCortexApiSample
                 { "MaxVal", 10.0}
                 };
 
-
                 HtmConfig cfg1 = new HtmConfig(new int[] { inputBits1 }, new int[] { numColumns })
                 {
                     CellsPerColumn = 10,
@@ -145,7 +144,6 @@ namespace NeoCortexApiSample
                 Console.WriteLine("Invalid Input");
             }
         }
-
 
         /// <summary>
         /// Implements the experiment.
@@ -371,14 +369,14 @@ namespace NeoCortexApiSample
             }
         }
 
-
-
         private static int[] BinarImage()
         {
             NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Black_square.JPG", "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt", 130, "");
             string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
 
-            // string file = "D:\\Code-X\\abcs.txt"; //..++ for image binarizer
+            //NeoCortexUtils.BinarizeImage("E:\\SE\\Main projeh\\neocortexapi\\Black_square.JPG", "E:\\SE\\Main projeh\\abcs.txt", 130, "");
+            //string file = "E:\\SE\\Main projeh\\abcs.txt"; //..++ for image binarizer
+
             string n = "";
 
             StreamReader r = new StreamReader(file);
@@ -472,14 +470,5 @@ namespace NeoCortexApiSample
             NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Similarity = {similaritystrng}");
 
         }
-
-
-
-
-
-
-
-
-
     }
 }

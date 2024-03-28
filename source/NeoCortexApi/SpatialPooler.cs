@@ -81,12 +81,7 @@ namespace NeoCortexApi
             }
 
             InitMatrices(c, distMem);
-
             ConnectAndConfigureInputs(c);
-
-
-            //sw.Stop();
-            //Console.WriteLine($"Init time: {(float)sw.ElapsedMilliseconds / (float)1000} s");
         }
 
         /// <summary>
@@ -128,7 +123,7 @@ namespace NeoCortexApi
             List<KeyPair> colList = new List<KeyPair>();
             for (int i = 0; i < numColumns; i++)
             {
-                colList.Add(new KeyPair() { Key = i, Value = new Column(numCells, i, conn.HtmConfig.SynPermConnected, conn.HtmConfig.NumInputs) });
+                colList.Add(new KeyPair() { Key = i, Value = new Column(numCells, i, conn.HtmConfig.SynPermConnected, conn.HtmConfig.NumInputs)});
             }
 
             conn.Memory.set(colList);
@@ -204,7 +199,6 @@ namespace NeoCortexApi
             UpdateInhibitionRadius(conn, avgSynapsesConnected);
         }
 
-
         /// <summary>
         /// Performs SpatialPooler compute algorithm.
         /// </summary>
@@ -217,7 +211,6 @@ namespace NeoCortexApi
             this.compute(input, activeColumnsArr, learn);
             return ArrayUtils.IndexWhere(activeColumnsArr, (el) => el == 1);
         }
-
 
         /// <summary>
         /// Performs SpatialPooler compute algorithm.
@@ -351,8 +344,6 @@ namespace NeoCortexApi
             //l.sort();
 
             //return Arrays.stream(activeColumns).filter(i->c.getActiveDutyCycles()[i] > 0).toArray();
-
-
 
             ////TINTHashSet 
             //HashSet<int> active = new HashSet<int>(activeColumns);
@@ -505,7 +496,6 @@ namespace NeoCortexApi
             c.HtmConfig.ActiveDutyCycles = CalcEventFrequency(c.HtmConfig.ActiveDutyCycles, activeColFrequencies, period);
         }
 
-
         /// <summary>
         /// Calculates the normalized counter value of the frequency of an event. 
         /// Event can be overlap or activation of the column.
@@ -587,7 +577,6 @@ namespace NeoCortexApi
             return ArrayUtils.Average(columnsPerInput);
         }
 
-
         /// <summary>
         /// It traverses all connected synapses of the column and calculates the span, which synapses
         /// span between all input bits. Then it calculates average of spans accross all dimensions. 
@@ -599,7 +588,6 @@ namespace NeoCortexApi
         {
             return HtmCompute.CalcAvgSpanOfConnectedSynapses(c.GetColumn(columnIndex), c.HtmConfig);
         }
-
         
         /// <summary>
         /// The primary method in charge of learning. Adapts the permanence values of the synapses based on the input vector, 
@@ -914,7 +902,6 @@ namespace NeoCortexApi
             return winners.ToArray();
         }
 
-
         public virtual int[] InhibitColumnsLocalNewApproach(Connections c, double[] overlaps)
         {
             int preActive = 0;
@@ -967,7 +954,6 @@ namespace NeoCortexApi
                 winnerDelta = 0.001;
             }
             
-
             //double[] tieBrokenOverlaps = new List<double>(overlaps).ToArray();
 
             List<int> winners = new List<int>();
@@ -1027,9 +1013,7 @@ namespace NeoCortexApi
                 winnerDelta = 0.001;
             }
             
-
             //double[] tieBrokenOverlaps = new List<double>(overlaps).ToArray();
-
             List<int> winners = new List<int>();
             double[] overlapArr = new List<double>(overlaps).ToArray();
             int inhibitionRadius = c.InhibitionRadius;
@@ -1041,7 +1025,6 @@ namespace NeoCortexApi
                 double[] arr = new double[neighborhoodSize];
                 arr[column] = overlapArr[column];
             }
-
             return winners.ToArray();
         }
         */
@@ -1092,7 +1075,7 @@ namespace NeoCortexApi
             return winners.ToArray();
         }
 
-        // lateral inhibition algorithm new approch /////////////////////
+        // lateral inhibition algorithm new approch 
         public virtual int[] InhibitColumnsLocalNew(Connections c, double[] overlaps, double density)
         {
             // WHY IS THIS DONE??
@@ -1142,7 +1125,6 @@ namespace NeoCortexApi
 
             return winners.ToArray();
         }
-
 
         /// <summary>
         /// Update the boost factors for all columns. The boost factors are used to increase the overlap of inactive columns to improve
@@ -1210,8 +1192,6 @@ namespace NeoCortexApi
 
             c.BoostFactors = boostFactors;
         }
-
-
 
         /// <summary>
         /// This function determines each column's overlap with the current input
@@ -1482,7 +1462,6 @@ namespace NeoCortexApi
             return permancences;
         }
 
-
         public void Serialize(object obj, string name, StreamWriter sw)
         {
             HtmSerializer.SerializeObject(obj, name, sw);
@@ -1500,4 +1479,3 @@ namespace NeoCortexApi
         }
     }
 }
-
