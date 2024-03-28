@@ -59,7 +59,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold = 10,
             };
             double max = 10;
-            Console.WriteLine("Please enter 1 for Integer,2 for Image : ");
+            Console.WriteLine("***** Please enter 1 for Integer,2 for Image *****");
             var x = Console.ReadLine(); // for the user to give the type of input
 
             // If condition to check whether the input is integer or image 
