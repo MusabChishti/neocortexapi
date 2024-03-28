@@ -61,6 +61,7 @@ namespace NeoCortexApiSample
             double max = 10;
             Console.WriteLine("***** Please enter 1 for Integer,2 for Image *****");
             var x = Console.ReadLine(); // for the user to give the type of input
+            Console.WriteLine("***** Please wait for a while...");
 
             // If condition to check whether the input is integer or image 
 
@@ -370,6 +371,10 @@ namespace NeoCortexApiSample
             }
         }
 
+        /// <summary>
+        /// Binarizes an image and converts the resulting binary data into an array of integers.
+        /// </summary>
+        /// <returns>An array of integers representing the binary data of the image.</returns>
         private static int[] BinarImage()
         {
             NeoCortexUtils.BinarizeImage("D:\\Code-X\\neocortexapi\\Black_square.JPG", "D:\\Code-X\\neocortexapi\\abcs.txt", 130, "");
@@ -402,19 +407,24 @@ namespace NeoCortexApiSample
         }
 
         /// <summary>
-        /// 
+        /// Runs an experiment for restructuring an image
         /// </summary>
-        /// <param name="sp1"> </param>
+        /// <param name="sp1">The spatial pooler used for restructuring the image.</param>
         private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
             //Create a directory to save the bitmap output.
             string outFolder = nameof(RunRustructuringExperiment);
             Directory.Delete(outFolder, true);
             Directory.CreateDirectory(outFolder);
-            var inpSdr = BinarImage();
-            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
+
+            var inpSdr = BinarImage();  // Binarize the image and convert it to an input SDR
+
+            // Invert the binary values to match the spatial pooler's expected input
+            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray(); 
             int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
             var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
+
+            // Draw the input bitmap before reconstruction
             NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: $"Binarized input image before reconstruction");
             var actCols = sp1.Compute(inpSdr1, false);
 
@@ -465,6 +475,7 @@ namespace NeoCortexApiSample
             similarity = Math.Round(similarity, 2);
             Console.WriteLine($"Similarity: {similarity}%");
 
+            // Draw the reconstructed output image with similarity percentage
             var similaritystrng = similarity.ToString();
             int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
             var twoDArray = ArrayUtils.Transpose(twoDiArray);
