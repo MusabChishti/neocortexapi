@@ -556,7 +556,6 @@ namespace NeoCortexApi
             this.InhibitionRadius = (int)(radius + 0.5);
         }
 
-
         /// <summary>
         /// It calculates ratio numOfCols/numOfInputs for every dimension.This value is used to calculate the inhibition radius.
         /// </summary>
@@ -634,7 +633,6 @@ namespace NeoCortexApi
 
             //Debug.WriteLine("Permance after update in adaptSynapses: " + permChangesStr);
         }
-
 
         /// <summary>
         /// This method increases the permanence values of synapses of columns whose 
@@ -1071,7 +1069,6 @@ namespace NeoCortexApi
                 }
             });
 
-
             return winners.ToArray();
         }
 
@@ -1331,7 +1328,6 @@ namespace NeoCortexApi
             return true;
 
         }
-
 
         public void Serialize(StreamWriter writer)
         {
