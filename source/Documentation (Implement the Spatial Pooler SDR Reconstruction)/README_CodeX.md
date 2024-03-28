@@ -6,7 +6,7 @@ The project Implement the Spatial Pooler SDR Reconstruction is developed using C
 Methods added:  
 # Create a method RunRustructuringExperiment()
 Snippet of method added in-order to achieve the reconstruct functionality for integer input.
-[Refer code in Git for RunRustructuringExperiment method](https://github.com/MusabChishti/neocortexapi/blob/cbc59dfd55ff85788915e9f2ac7d262aba9281a5/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L277)
+[Refer code in Git for RunRustructuringExperiment method](https://github.com/MusabChishti/neocortexapi/blob/3cd0b173fe282e56c3ddafb50a9ab8e12b079b96/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L275)
 ~~~csharp
          private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
@@ -28,15 +28,15 @@ Snippet of method added in-order to achieve the reconstruct functionality for in
 1)Clone this repository to your local machine.
 
 2)Ensure you have the necessary dependencies installed, including:
-
 Daenet.ImageBinarizerLib
 LearningFoundation
 NeoCortex
+
 3)Open the solution in your preferred C# IDE.
 
 4)Build the solution to ensure all dependencies are resolved.
 
-5)Before running the experiment, make sure to check for the input image path and specify the output folder where the generated images will be saved.
+5)Before running the experiment while working with image, make sure to check for the input image path and specify the output folder where the reconstructed images will be saved.
 
 	Input Image Path: Ensure that the path to the input image is correctly specified in the code. This is typically set in the BinarImage().
 	Output Folder: Specify the path to the folder where the generated images will be saved.This is typically set in the BinarImage().
@@ -52,7 +52,7 @@ Use above code to call serialization and StreamWriter helps to save it to any te
 # Create a method RunRustructuringExperimentImage()
 
 Snippet of method added in-order to achieve the reconstruct functionality for Image input.
-[Refer code in Git for RunRustructuringExperimentImage method](https://github.com/MusabChishti/neocortexapi/blob/cbc59dfd55ff85788915e9f2ac7d262aba9281a5/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L408C29-L408C60)
+[Refer code in Git for RunRustructuringExperimentImage method](https://github.com/MusabChishti/neocortexapi/blob/3cd0b173fe282e56c3ddafb50a9ab8e12b079b96/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L408)
 ~~~csharp
          private static void RunRustructuringExperimentImage(SpatialPooler sp1)
         {
@@ -66,7 +66,7 @@ Snippet of method added in-order to achieve the reconstruct functionality for Im
 # Create a method BinarImage()
 
 Snippet of method added in-order to Binarize Image.
-[Refer code in Git for BinarImage method](https://github.com/MusabChishti/neocortexapi/blob/cbc59dfd55ff85788915e9f2ac7d262aba9281a5/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L359C30-L359C42)
+[Refer code in Git for BinarImage method](https://github.com/MusabChishti/neocortexapi/blob/3cd0b173fe282e56c3ddafb50a9ab8e12b079b96/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L373)
 ~~~csharp
          private static int[] BinarImage()
         {
@@ -92,31 +92,30 @@ Sample of a input and reconstructed output bitmap: The bitmap images generated d
   
 ## Testing
 
-The Below figure 1 shows a snippet from input of integer 8. Figure 2 is reconstructed output image.
+The Below figure 1 shows a snippet from input of integer 0 to 9 and reconstructed output image.
 
-![alt text](8.png)
+![figure 1 (Input and output Images)](https://github.com/MusabChishti/neocortexapi/assets/148814256/ac667ee5-b70c-4450-aaf1-8dd651dbf832)
 
-![Reconstructed output image](8-similarity=80.5.png)
+The Below figure 3 is input and the reconstructed output image.
 
-The Below figure 3 shows a snippet from input of Image. Figure 4 is reconstructed output image.
-
-![Input Image](input.png)
-![Reconstructed Output Image](Output-36.71.png)
+(![Input and the reconstructed output Image](https://github.com/MusabChishti/neocortexapi/assets/148814256/a0161001-a6a3-48a6-87fa-3370e4bec2b5)
 
 #
+
+
+
+
 Team Name : CodeX
 
 Team Members: Nithin Benny, Musab Chishti, Abdul Rehman and Adeleh Behboodi.  
 
-Link to Project:  [Team CodeX - Group Branch ](https://github.com/MusabChishti/neocortexapi/tree/CodeX)  
+Link to Project:  [Team CodeX - Group Branch ](https://github.com/MusabChishti/neocortexapi/blob/CodeX/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs)  
 Forked from: https://github.com/ddobric/neocortexapi
 
 # **Outcome of Project**
 Objective of this project is implementing Reconstruct functionality for Integer and Image inputs.
 
-The outputs are validated and demonstrated with help of Bitmap and Similarity.  
-  - [x] Drawing bitmap using DrawBitmap() for input and output. 
-  - [x] Finding the similarity between input and output.
+Upon execution of the test case, we observed that we are getting reconstructed images with similarities ranging from 70% to 95%. We also notice that there are some noises even after normalizing the permanence values. In order to reduce the noise, we increased the threshold, but it impacts our reconstructed image. The above figure (Figure 1) is a snippet of our result of first ten integers. It can be noticed that some parts of the reconstructed images are impacted.
 
 #### Team Contribution Links:  
 Consolidated commits and changes of all members available at -->  [ Team CodeX Branch ](https://github.com/MusabChishti/neocortexapi/commits/CodeX/)
