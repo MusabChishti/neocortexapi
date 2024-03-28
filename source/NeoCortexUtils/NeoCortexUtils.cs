@@ -31,18 +31,10 @@ namespace NeoCortex
         {
             testname = "a";
 
-<<<<<<< HEAD
+
             
 
-=======
->>>>>>> e05e180ff2899b9fb4e89d13fe945963a37d87e2
-           // mnistImage = "D:\\Code-X\\Capture.PNG";   // input path of image
-           // binaryImage = "D:\\Code-X\\abcs.txt"; // output path
-<<<<<<< HEAD
 
-
-=======
->>>>>>> e05e180ff2899b9fb4e89d13fe945963a37d87e2
 
             if (File.Exists(binaryImage))
             {

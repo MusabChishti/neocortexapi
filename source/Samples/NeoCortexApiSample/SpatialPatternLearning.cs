@@ -394,7 +394,7 @@ namespace NeoCortexApiSample
                 {
                     // Handle parsing failure, if needed
                     // For example, you might set a default value or log an error
-                    binaryArray[i] = 0; // Set a default value
+                    binaryArray[i] = 1; // Set a default value
                                          // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
                 }
             }
@@ -444,7 +444,7 @@ namespace NeoCortexApiSample
             int[] thresholdvalues = new int[inpSdr1.Length];
 
             int key = 0; //List index
-            var thresholds = 0.4;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            var thresholds = 0.3;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
 
             foreach (var val in values)
             {
