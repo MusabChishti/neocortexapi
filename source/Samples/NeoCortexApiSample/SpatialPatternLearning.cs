@@ -305,8 +305,98 @@ namespace NeoCortexApiSample
                 var probabilities = sp.Reconstruct(actCols);
                 Debug.WriteLine(probabilities.Values);
 
-                Dictionary<int, double> normalizedData = new Dictionary<int, double>();
 
+                Dictionary<int, double> normalizedData = new Dictionary<int, double>();
+                normalizedData = Normalize(probabilities);
+
+
+                // Collecting the permancences value and applying threshold and analyzing it
+
+                // Extract the values from the dictionary.
+                Dictionary<int, double>.ValueCollection values = normalizedData.Values;
+
+                // Initialize an array to store thresholded values.
+                int[] thresholdValues = new int[inpSdr.Length];
+
+               
+
+                // Set the threshold value.
+                var thresholds = 0.6;
+                thresholdValues = ApplyThreshold(normalizedData.Values, thresholds,inpSdr.Length);
+
+                // Calculate similarity between the original encoded input and the thresholded values.
+                int matchingCount = inpSdr.Zip(thresholdValues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+                var similarity = (double)matchingCount / inpSdr.Length * 100;
+                similarity = Math.Round(similarity, 2);
+                Debug.WriteLine($"Similarity of integer {input}: {similarity}%");
+
+                // Convert similarity to string for file naming.
+                var similaritystrng = similarity.ToString();
+
+                // Convert thresholded values to a 2D array.
+                int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdValues, (int)Math.Sqrt(thresholdValues.Length), (int)Math.Sqrt(thresholdValues.Length));
+                var twoDArray = ArrayUtils.Transpose(twoDiArray);
+
+                // Draw a bitmap image of the thresholded values, including similarity percentage, and save it.
+                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: $"Reconstructed Image of integer {input} with Similarity = {similaritystrng}%");
+            }
+        }
+        /// <summary>
+        /// Runs an experiment for restructuring an image
+        /// </summary>
+        /// <param name="sp1">The spatial pooler used for restructuring the image.</param>
+        private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+        {
+            //Create a directory to save the bitmap output.
+            string outFolder = nameof(RunRustructuringExperiment);
+            Directory.Delete(outFolder, true);
+            Directory.CreateDirectory(outFolder);
+
+            var inpSdr = BinarImage();  // Binarize the image and convert it to an input SDR
+
+            // Invert the binary values to match the spatial pooler's expected input
+            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray();
+            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
+            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
+
+            // Draw the input bitmap before reconstruction
+            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: $"Binarized input image before reconstruction");
+            var actCols = sp1.Compute(inpSdr1, false);
+
+            var probabilities = sp1.Reconstruct(actCols);
+            Dictionary<int, double> normalizedData = new Dictionary<int, double>();
+            normalizedData = Normalize(probabilities);
+
+
+            //Collecting the permancences value and applying threshold and analyzing it
+            Dictionary<int, double>.ValueCollection values = normalizedData.Values;
+            int[] thresholdValues = new int[inpSdr1.Length];
+
+
+            var thresholds = 0.3;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            thresholdValues = ApplyThreshold(normalizedData.Values, thresholds,inpSdr1.Length);
+
+
+            int matchingCount = inpSdr1.Zip(thresholdValues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
+            var similarity = (double)matchingCount / inpSdr.Length * 100;
+            similarity = Math.Round(similarity, 2);
+            Console.WriteLine($"Similarity: {similarity}%");
+
+            // Draw the reconstructed output image with similarity percentage
+            var similaritystrng = similarity.ToString();
+            int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdValues, (int)Math.Sqrt(thresholdValues.Length), (int)Math.Sqrt(thresholdValues.Length));
+            var twoDArray = ArrayUtils.Transpose(twoDiArray);
+            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Reconstructed Image with Similarity = {similaritystrng}%");
+
+        }
+
+        public static Dictionary<int, double> Normalize(Dictionary<int, double> probabilities)
+        {
+            Dictionary<int, double> normalizedData = new Dictionary<int, double>();
+
+            // Check if there are elements in probabilities
+            if (probabilities.Count > 0)
+            {
                 // Find min and max values
                 double minValue = double.MaxValue;
                 double maxValue = double.MinValue;
@@ -324,51 +414,14 @@ namespace NeoCortexApiSample
                     double normalizedValue = (kvp.Value - minValue) / (maxValue - minValue);
                     normalizedData.Add(kvp.Key, normalizedValue);
                 }
-
-                // Collecting the permancences value and applying threshold and analyzing it
-
-                // Extract the values from the dictionary.
-                Dictionary<int, double>.ValueCollection values = normalizedData.Values;
-
-                // Initialize an array to store thresholded values.
-                int[] thresholdvalues = new int[inpSdr.Length];
-
-                // Initialize an index for iterating over thresholdvalues.
-                int key = 0;
-
-                // Set the threshold value.
-                var thresholds = 0.85;
-
-                // Loop through the values and apply thresholding.
-                foreach (var val in values)
-                {
-                    if (val > thresholds)
-                    {
-                        thresholdvalues[key] = 1;
-                    }
-                    else
-                    {
-                        thresholdvalues[key] = 0;
-                    }
-                    key++;
-                }
-
-                // Calculate similarity between the original encoded input and the thresholded values.
-                int matchingCount = inpSdr.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
-                var similarity = (double)matchingCount / inpSdr.Length * 100;
-                similarity = Math.Round(similarity, 2);
-                Debug.WriteLine($"Similarity of integer {input}: {similarity}%");
-
-                // Convert similarity to string for file naming.
-                var similaritystrng = similarity.ToString();
-
-                // Convert thresholded values to a 2D array.
-                int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
-                var twoDArray = ArrayUtils.Transpose(twoDiArray);
-
-                // Draw a bitmap image of the thresholded values, including similarity percentage, and save it.
-                NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\{input}-similarity={similaritystrng}.png", Color.Gray, Color.Green, text: $"Reconstructed Image of integer {input} with Similarity = {similaritystrng}%");
             }
+            else
+            {
+                // Handle case where probabilities dictionary is empty
+                Console.WriteLine("Warning: No elements in the 'probabilities' dictionary.");
+            }
+
+            return normalizedData;
         }
 
         /// <summary>
@@ -377,8 +430,8 @@ namespace NeoCortexApiSample
         /// <returns>An array of integers representing the binary data of the image.</returns>
         private static int[] BinarImage()
         {
-            NeoCortexUtils.BinarizeImage("D:\\Code-X\\neocortexapi\\Black_square.JPG", "D:\\Code-X\\neocortexapi\\abcs.txt", 130, "");
-            string file = "D:\\Code-X\\neocortexapi\\abcs.txt"; //..++ for image binarizer
+            NeoCortexUtils.BinarizeImage("C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\Black_square.JPG", "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt", 130, "");
+            string file = "C:\\Users\\nithi\\My Files\\Project\\neocortexapi\\abcs.txt"; //..++ for image binarizer
 
             //NeoCortexUtils.BinarizeImage("E:\\SE\\Main projeh\\neocortexapi\\Black_square.JPG", "E:\\SE\\Main projeh\\abcs.txt", 130, "");
             //string file = "E:\\SE\\Main projeh\\abcs.txt"; //..++ for image binarizer
@@ -400,87 +453,32 @@ namespace NeoCortexApiSample
                     // Handle parsing failure, if needed
                     // For example, you might set a default value or log an error
                     binaryArray[i] = 1; // Set a default value
-                                         // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
+                                        // Log error, e.g., Console.WriteLine($"Error parsing character at position {i}");
                 }
             }
             return binaryArray;
         }
-
-        /// <summary>
-        /// Runs an experiment for restructuring an image
-        /// </summary>
-        /// <param name="sp1">The spatial pooler used for restructuring the image.</param>
-        private static void RunRustructuringExperimentImage(SpatialPooler sp1)
+        public static int[] ApplyThreshold(IEnumerable<double> values, double threshold,int length)
         {
-            //Create a directory to save the bitmap output.
-            string outFolder = nameof(RunRustructuringExperiment);
-            Directory.Delete(outFolder, true);
-            Directory.CreateDirectory(outFolder);
-
-            var inpSdr = BinarImage();  // Binarize the image and convert it to an input SDR
-
-            // Invert the binary values to match the spatial pooler's expected input
-            int[] inpSdr1 = inpSdr.Select(x => x == 1 ? 0 : 1).ToArray(); 
-            int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(inpSdr1, (int)Math.Sqrt(inpSdr1.Length), (int)Math.Sqrt(inpSdr1.Length));
-            var twoDimArray = ArrayUtils.Transpose(twoDimenArray);
-
-            // Draw the input bitmap before reconstruction
-            NeoCortexUtils.DrawBitmap(twoDimArray, 1024, 1024, $"{outFolder}\\input.png", Color.Gray, Color.Green, text: $"Binarized input image before reconstruction");
-            var actCols = sp1.Compute(inpSdr1, false);
-
-            var probabilities = sp1.Reconstruct(actCols);
-            Dictionary<int, double> normalizedData = new Dictionary<int, double>();
-
-            // Find min and max values
-            double minValue = double.MaxValue;
-            double maxValue = double.MinValue;
-            foreach (var value in probabilities.Values)
-            {
-                if (value < minValue)
-                    minValue = value;
-                if (value > maxValue)
-                    maxValue = value;
-            }
-
-            // Normalize data
-            foreach (var kvp in probabilities)
-            {
-                double normalizedValue = (kvp.Value - minValue) / (maxValue - minValue);
-                normalizedData.Add(kvp.Key, normalizedValue);
-            }
-
-            //Collecting the permancences value and applying threshold and analyzing it
-            Dictionary<int, double>.ValueCollection values = normalizedData.Values;
-            int[] thresholdvalues = new int[inpSdr1.Length];
-
-            int key = 0; //List index
-            var thresholds = 0.3;     // Just declared the variable for segrigating values between 0 and 1 and to change the threshold value
+            int[] thresholdValues = new int[length];
+            int index = 0;
 
             foreach (var val in values)
             {
-                if (val > thresholds)
+                if (val > threshold)
                 {
-                    thresholdvalues[key] = 1;
-                    key++;
+                    thresholdValues[index] = 1;
                 }
                 else
                 {
-                    thresholdvalues[key] = 0;
-                    key++;
+                    thresholdValues[index] = 0;
                 }
-
+                index++;
             }
-            int matchingCount = inpSdr1.Zip(thresholdvalues, (a, b) => a.Equals(b) ? 1 : 0).Sum();
-            var similarity = (double)matchingCount / inpSdr.Length * 100;
-            similarity = Math.Round(similarity, 2);
-            Console.WriteLine($"Similarity: {similarity}%");
 
-            // Draw the reconstructed output image with similarity percentage
-            var similaritystrng = similarity.ToString();
-            int[,] twoDiArray = ArrayUtils.Make2DArray<int>(thresholdvalues, (int)Math.Sqrt(thresholdvalues.Length), (int)Math.Sqrt(thresholdvalues.Length));
-            var twoDArray = ArrayUtils.Transpose(twoDiArray);
-            NeoCortexUtils.DrawBitmap(twoDArray, 1024, 1024, $"{outFolder}\\Output-{similaritystrng}.png", Color.Gray, Color.Green, text: $"Reconstructed Image with Similarity = {similaritystrng}%");
-
+            return thresholdValues;
         }
+
+       
     }
 }
