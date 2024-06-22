@@ -58,7 +58,7 @@ namespace NeoCortexApiSample
                 Random = new ThreadSafeRandom(42),
                 StimulusThreshold = 10,
             };
-            double max = 10;
+            double max = 100;
             Console.WriteLine("***** Please enter 1 for Integer,2 for Image *****");
             var x = Console.ReadLine(); // for the user to give the type of input
             Console.WriteLine("***** Please wait for a while...");
